@@ -1,0 +1,221 @@
+/* ===== PAGE ===== */
+
+.addProductContainer {
+
+  min-height: 100vh;
+
+  background: #f5f7fb;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: flex-start;
+
+  padding: 100px 20px 40px;
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+/* ===== CARD ===== */
+
+.addProductCard {
+
+  width: 100%;
+
+  max-width: 480px;
+
+  background: white;
+
+  border-radius: 16px;
+
+  padding: 28px;
+
+  box-shadow:
+    0 5px 18px rgba(0,0,0,0.08);
+
+  transition: 0.3s ease;
+}
+
+
+.addProductCard:hover {
+
+  box-shadow:
+    0 12px 28px rgba(0,0,0,0.12);
+}
+
+
+
+/* ===== HEADING ===== */
+
+.addProductCard h2 {
+
+  font-size: 28px;
+
+  color: #1e293b;
+
+  margin-bottom: 6px;
+
+  font-weight: 700;
+}
+
+
+.addProductCard p {
+
+  color: #64748b;
+
+  font-size: 14px;
+
+  margin-bottom: 24px;
+}
+
+
+
+/* ===== FORM ===== */
+
+.addProductForm {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+
+
+/* ===== INPUT GROUP ===== */
+
+.productFormGroup {
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+
+.productFormGroup label {
+
+  margin-bottom: 7px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #334155;
+}
+
+
+
+/* ===== INPUTS ===== */
+
+.productFormGroup input,
+.productFormGroup textarea,
+.productFormGroup select {
+
+  padding: 12px 14px;
+
+  border: 1px solid #dbe2ea;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition: 0.3s ease;
+
+  background: white;
+}
+
+
+.productFormGroup input:focus,
+.productFormGroup textarea:focus,
+.productFormGroup select:focus {
+
+  border-color: #3b82f6;
+
+  box-shadow:
+    0 0 0 3px rgba(59,130,246,0.12);
+}
+
+
+
+/* ===== TEXTAREA ===== */
+
+.productFormGroup textarea {
+
+  resize: none;
+}
+
+
+
+/* ===== BUTTON ===== */
+
+.addProductBtn {
+
+  background: #2563eb;
+
+  color: white;
+
+  border: none;
+
+  padding: 13px;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+
+  margin-top: 8px;
+}
+
+
+.addProductBtn:hover {
+
+  background: #1d4ed8;
+
+  transform: translateY(-2px);
+}
+
+
+.addProductBtn:disabled {
+
+  background: #93c5fd;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+
+  .addProductContainer {
+
+    padding:
+      90px 15px 30px;
+  }
+
+  .addProductCard {
+
+    max-width: 100%;
+
+    padding: 22px;
+  }
+
+  .addProductCard h2 {
+
+    font-size: 24px;
+  }
+}

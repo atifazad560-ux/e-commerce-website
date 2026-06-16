@@ -1,0 +1,112 @@
+.createSellerContainer {
+  width: 100%;
+  padding: 16px 24px;
+  background: #f5f7fb;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.createSellerCard {
+  width: 100%;
+  max-width: 500px;
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 16px;
+  border: 1px solid #e9edf5;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+}
+
+.createSellerCard h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.createSellerCard p {
+  margin-top: 6px;
+  margin-bottom: 22px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.formGroup {
+  margin-bottom: 14px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #dbe1ea;
+  border-radius: 10px;
+  outline: none;
+  font-size: 14px;
+  background: #f9fafb;
+  color: #111827;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.formGroup input::placeholder,
+.formGroup textarea::placeholder {
+  color: #9ca3af;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  border-color: #4f46e5;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.createSellerBtn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  background: #4f46e5;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.createSellerBtn:hover {
+  background: #4338ca;
+  transform: translateY(-1px);
+}
+
+.createSellerBtn:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+
+  .createSellerContainer {
+    padding: 14px;
+  }
+
+  .createSellerCard {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+}

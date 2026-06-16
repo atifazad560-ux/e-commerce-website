@@ -1,0 +1,336 @@
+/* ===================================
+   GLOBAL
+=================================== */
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: "Poppins", sans-serif;
+  background: #f8fafc;
+}
+
+
+/* ===================================
+   MAIN CONTAINER
+=================================== */
+
+.my-products-container{
+
+  min-height: 100vh;
+
+  padding: 40px;
+
+  background: #f8fafc;
+}
+
+
+/* ===================================
+   TITLE
+=================================== */
+
+.my-products-title{
+
+  text-align: center;
+
+  font-size: 34px;
+
+  font-weight: 700;
+
+  color: #0f172a;
+
+  margin-bottom: 40px;
+
+  position: relative;
+}
+
+.my-products-title::after{
+
+  content: "";
+
+  width: 70px;
+
+  height: 4px;
+
+  background: #2563eb;
+
+  border-radius: 20px;
+
+  position: absolute;
+
+  left: 50%;
+
+  bottom: -10px;
+
+  transform: translateX(-50%);
+}
+
+
+/* ===================================
+   GRID
+=================================== */
+
+.products-grid{
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 22px;
+
+  justify-content: center;
+}
+
+
+/* ===================================
+   CARD
+=================================== */
+
+.product-card{
+
+  width: 260px;
+
+  background: #ffffff;
+
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  border: 1px solid #e2e8f0;
+
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.05);
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease;
+}
+
+.product-card:hover{
+
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 12px 25px rgba(37,99,235,0.12);
+}
+
+
+/* ===================================
+   IMAGE SECTION
+=================================== */
+
+.product-image-wrapper{
+
+  width: 100%;
+
+  height: 180px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff,
+      #f1f5f9
+    );
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: 12px;
+
+  border-bottom:
+    1px solid #e2e8f0;
+}
+
+.product-image{
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: contain;
+
+  transition: transform .4s ease;
+}
+
+.product-card:hover .product-image{
+
+  transform: scale(1.05);
+}
+
+
+/* ===================================
+   CONTENT
+=================================== */
+
+.product-content{
+
+  padding: 16px;
+}
+
+
+/* ===================================
+   PRODUCT NAME
+=================================== */
+
+.product-name{
+
+  font-size: 17px;
+
+  font-weight: 600;
+
+  color: #0f172a;
+
+  margin-bottom: 10px;
+
+  line-height: 1.4;
+
+  min-height: 45px;
+}
+
+
+/* ===================================
+   PRICE
+=================================== */
+
+.product-price{
+
+  display: inline-block;
+
+  background: #eff6ff;
+
+  color: #1d4ed8;
+
+  border: 1px solid #bfdbfe;
+
+  padding: 6px 12px;
+
+  border-radius: 8px;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  margin-bottom: 12px;
+}
+
+
+/* ===================================
+   DESCRIPTION
+=================================== */
+
+.product-description{
+
+  display: -webkit-box;
+
+  -webkit-box-orient: vertical;
+
+  -webkit-line-clamp: 3;
+
+  line-clamp: 3;
+
+  overflow: hidden;
+}
+
+
+/* ===================================
+   FOOTER
+=================================== */
+
+.product-footer{
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  border-top:
+    1px solid #e2e8f0;
+
+  padding-top: 12px;
+}
+
+
+/* STOCK */
+
+.stock-badge{
+
+  background: #ecfdf5;
+
+  color: #059669;
+
+  padding: 5px 10px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+
+/* CATEGORY */
+
+.category-badge{
+
+  background: #f1f5f9;
+
+  color: #475569;
+
+  padding: 5px 10px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+
+/* ===================================
+   NO PRODUCTS
+=================================== */
+
+.no-products{
+
+  text-align: center;
+
+  margin-top: 100px;
+
+  font-size: 22px;
+
+  color: #64748b;
+
+  font-weight: 600;
+}
+
+
+/* ===================================
+   MOBILE
+=================================== */
+
+@media(max-width:768px){
+
+  .my-products-container{
+
+    padding: 20px;
+  }
+
+  .my-products-title{
+
+    font-size: 28px;
+  }
+
+  .product-card{
+
+    width: 100%;
+
+    max-width: 320px;
+  }
+}
