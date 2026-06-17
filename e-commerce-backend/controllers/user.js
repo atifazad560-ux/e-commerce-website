@@ -24,7 +24,7 @@ exports.signup = async (req, res) => {
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const userId = await UserType.findOne({ role: "user" })
-
+ 
     const newUser = new User({
       name,
       email,
@@ -35,7 +35,7 @@ exports.signup = async (req, res) => {
       otp,
       otpExpires: Date.now() + 10 * 60 * 1000 // 10 min
     });
-
+console.log("SIGNUP EMAIL:", req.body.email);
     await newUser.save();
 
     await sendEmail

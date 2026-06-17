@@ -183,6 +183,49 @@ exports.addCategory = async (req, res) => {
 
 
 
+// Get User Details
+
+exports.getAllUsers = async (req, res) => {
+  try {
+
+    const userRole = await UserType.findOne({ role: "user" });
+
+    const users = await User.find({
+      userType: userRole._id,
+      isDeleted: false
+    })
+    .select("-password -otp -otpExpires")
+    .populate("userType", "role");
+
+    const usersWithOrders = await Promise.all(
+      users.map(async (user) => {
+
+        const ordersCount = await Order.countDocuments({
+          user: user._id
+        });
+
+        return {
+          ...user.toObject(),
+          ordersCount
+        };
+      })
+    );
+
+    res.json({
+      success: true,
+      users: usersWithOrders
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
+
+
 // viewProduct by Admin
 
 exports.AdminProduct = async (req, res) => {
@@ -264,7 +307,7 @@ exports.getDashboardStats = async (req, res) => {
 
 exports.createDeliveryBoy = async (req, res) => {
   try {
-    const { name, email, mobile, vehicleNumber } = req.body;
+    const { name, email, mobile, vehicleNumber , vehicleType  } = req.body;
 
     const exists = await User.findOne({ email });
     if (exists) {
@@ -283,7 +326,7 @@ exports.createDeliveryBoy = async (req, res) => {
       password: hashedPassword,
       mobile,
       userType: deliveryRole._id,
-      deliveryInfo: { vehicleNumber },
+      deliveryInfo: { vehicleNumber , vehicleType},
       isActive: true,
       isVerified: true
     });

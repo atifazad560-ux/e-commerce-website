@@ -96,6 +96,9 @@ const Login = () => {
       else if (role === "seller") {
         navigate("/seller/dashboard")
       }
+      else if (role === "delivery") {
+        navigate("/delivery/dashboard")
+      }
 
       else {
         navigate("/user/dashboard")

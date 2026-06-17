@@ -67,7 +67,7 @@ export default function VerifyEmail() {
                     otp: otpCode
                 }
             )
-console.log("VERIFY RESPONSE:", response.data);
+            console.log("VERIFY RESPONSE:", response.data);
             dispatch(loginSuccess({
                 user: response.data.user,
                 token: response.data.token

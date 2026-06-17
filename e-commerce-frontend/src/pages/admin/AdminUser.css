@@ -1,0 +1,119 @@
+/* Page Background */
+.admin-users-page {
+  padding: 30px;
+  background: #f4f6fb;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Header */
+.admin-users-header {
+  margin-bottom: 25px;
+}
+
+.admin-users-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.admin-users-header p {
+  color: #6b7280;
+  margin-top: 5px;
+}
+
+/* Card */
+.admin-users-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  overflow-x: auto;
+}
+
+/* Table */
+.admin-users-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+/* Head */
+.admin-users-table thead {
+  background: #111827;
+  color: white;
+}
+
+.admin-users-table th {
+  padding: 15px;
+  text-align: left;
+  font-size: 13px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+/* Body */
+.admin-users-table td {
+  padding: 14px 15px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 14px;
+  color: #374151;
+}
+
+/* Row hover */
+.table-row {
+  transition: all 0.2s ease;
+}
+
+.table-row:hover {
+  background: #f9fafb;
+}
+
+/* User fields */
+.user-name {
+  font-weight: 600;
+  color: #111827;
+}
+
+.user-email {
+  color: #2563eb;
+}
+
+.user-mobile {
+  color: #6b7280;
+}
+
+/* Status badges */
+.status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.verified {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.unverified {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Orders */
+.user-orders {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-users-page {
+    padding: 15px;
+  }
+
+  .admin-users-table {
+    min-width: 600px;
+  }
+}

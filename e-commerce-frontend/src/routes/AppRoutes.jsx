@@ -17,8 +17,9 @@ import UserRoute from "./UserRoute"
 import AdminRoute from "./AdminRoute"
 import AdminDashboard from "../pages/admin/AdminDashboard"
 import CreateSeller from "../pages/admin/CreateSeller"
+import CreateDeliveryBoy from "../pages/admin/CreateDeliveryBoy"
 import CreateCategory from "../pages/admin/CreateCategory"
-import User from "../pages/admin/User"
+import AdminUser from "../pages/admin/AdminUser"
 import AdminProduct from "../pages/admin/AdminProduct"
 import AdminOrders from "../pages/admin/AdminOrders"
 import AdminSetting from "../pages/admin/AdminSetting"
@@ -36,6 +37,8 @@ import DeliveryDashboard from "../pages/dellivery/DeliveryDashboard"
 import DashboardLayout from "../components/dashboard/DashboardLayout"
 import VerifyEmail from "../pages/auth/VerifyEmail"
 
+
+
 const AppRoutes = () => {
 
   return (
@@ -50,7 +53,7 @@ const AppRoutes = () => {
         <Route path="login" element={<Login />} />
 
         <Route path="signup" element={<SignUp />} />
-        
+
         <Route path="verify-email" element={<VerifyEmail />} />
 
 
@@ -62,6 +65,7 @@ const AppRoutes = () => {
         path="/user"
         element={
           <UserRoute>
+            <Navbar />
             <DashboardLayout role="user" />
           </UserRoute>
         }
@@ -77,7 +81,7 @@ const AppRoutes = () => {
         path="/admin"
         element={
           <AdminRoute>
-            <Navbar/>
+            <Navbar />
             <DashboardLayout role="admin" />
           </AdminRoute>
         }
@@ -85,13 +89,15 @@ const AppRoutes = () => {
 
         <Route path="dashboard" element={<AdminDashboard />} />
 
-        <Route path="create-seller" element={<CreateSeller />} />
-        
-        <Route path="category" element={<CreateCategory />} />
-
-        <Route path="users" element={<User />} />
+        <Route path="get-user" element={<AdminUser />} />
 
         <Route path="products" element={<AdminProduct />} />
+
+        <Route path="create-seller" element={<CreateSeller />} />
+
+        <Route path="create-delivery-boy" element={<CreateDeliveryBoy />} />
+
+        <Route path="category" element={<CreateCategory />} />
 
         <Route path="orders" element={<AdminOrders />} />
 
@@ -105,7 +111,7 @@ const AppRoutes = () => {
         path="/seller"
         element={
           <SellerRoute>
-            <Navbar/>
+            <Navbar />
             <DashboardLayout role="seller" />
           </SellerRoute>
         }

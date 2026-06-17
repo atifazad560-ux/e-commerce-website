@@ -23,6 +23,11 @@ const createAuthMiddleware = (role) => async (req, res, next) => {
 
     const user = await User.findById(decoded.userId).populate("userType");
 
+
+
+    console.log("USER:", user.email);
+    console.log("ROLE:", user.userType?.role);
+    console.log("REQUIRED ROLE:", role);
     if (!user) {
       return res.status(401).json({ message: "Invalid token" });
     }
@@ -34,6 +39,7 @@ const createAuthMiddleware = (role) => async (req, res, next) => {
     req.user = user;
     req.user = user;
     next();
+
 
   } catch (error) {
     console.log("AUTH ERROR:", error);

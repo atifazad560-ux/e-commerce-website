@@ -17,21 +17,26 @@ function DashboardLayout({ role }) {
       path: "/admin/dashboard"
     },
     {
-      name: "Create Seller",
-      path: "/admin/create-seller"
-    },
-    {
-      name: "Create Product Category",
-      path : "/admin/category"
-    },
-    {
       name: "Users",
-      path: "/admin/users"
+      path: "/admin/get-user"
     },
     {
       name: "Products",
       path: "/admin/products"
     },
+    {
+      name: "Create Seller",
+      path: "/admin/create-seller"
+    },
+    {
+      name: "Create Delivery Boy",
+      path: "/admin/create-delivery-boy"
+    },
+    {
+      name: "Create Product Category",
+      path : "/admin/category"
+    },
+    
     {
       name: "Orders",
       path: "/admin/orders"
