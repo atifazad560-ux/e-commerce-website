@@ -56,3 +56,46 @@
   color: #888;
   text-align: center;
 }
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.action-buttons button {
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  color: black;
+  cursor: pointer;
+  border-radius: 8px;
+  min-width: 160px;
+  transition: all 0.3s ease;
+}
+
+/* Amazon-like light yellow */
+.cart-btn {
+  background-color: #ffd814;
+}
+
+.cart-btn:hover {
+  background-color: #f7ca00;
+}
+
+/* Dark yellow / orange */
+.buy-btn {
+  background-color: #ffa41c;
+}
+
+.buy-btn:hover {
+  background-color: #fa8900;
+}
+
+@media (max-width: 500px) {
+  .action-buttons {
+    flex-direction: column;
+  }
+}

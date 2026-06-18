@@ -17,11 +17,12 @@ function ViewProduct() {
     const viewData = async () => {
         try {
             const user = localStorage.getItem('user');
+            const token = localStorage.getItem('token');
 
             const response = await axios.get(`http://localhost:4000/api/v1/products/${id}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${user}`
+                        Authorization: `Bearer ${user , token}`
                     }
                 }
             );
@@ -49,6 +50,11 @@ function ViewProduct() {
                     <h2>{product?.name}</h2>
                     <p>{product?.description}</p>
                     <h3>₹{product?.price}</h3>
+
+                    <div className="action-buttons">
+                        <button className="cart-btn">Add to Cart</button>
+                        <button className="buy-btn">Buy Now</button>
+                    </div>
                 </div>
             )}
         </div>

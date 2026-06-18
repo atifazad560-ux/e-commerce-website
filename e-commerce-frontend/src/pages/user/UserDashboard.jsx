@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./UserDashboard.css";
 import { Navigate, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const UserDashboard = () => {
   const [data, setData] = useState([]);
@@ -10,7 +11,6 @@ const UserDashboard = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
 
 
   // for fetching data from server to user HomePage
@@ -34,6 +34,36 @@ const UserDashboard = () => {
   };
 
 
+  const addToWishList = async (productId) => {
+    console.log(productId);
+
+    try {
+      const user = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+
+      const response = await axios.post(`http://localhost:4000/api/v1/add-wishlist`,
+        { productId },
+        {
+          headers: {
+            Authorization: `Bearer ${user, token}`
+          }
+        }
+      )
+
+
+      if (response.data.wishlisted) {
+        toast.success("Added to wishlist");
+      } else {
+        toast.info("Removed from wishlist");
+      }
+      
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+
+  }
+
+
 
 
   return (
@@ -50,17 +80,24 @@ const UserDashboard = () => {
 
       <div className="products-grid">
         {data.map((item) => (
-          
+
           <div className="product-card" key={item._id}>
-            <div className="wishlist">♡</div>
+
+            <div className="wishlist" onClick={() => addToWishList(item._id)}>♡</div>
 
             <img src={item?.image || "/fallback img.png"} alt={item.name} />
 
             <div className="product-info">
               <h2>{item.name}</h2>
+
               <p className="description">{item.description}</p>
+
               <h3>₹{item.price}</h3>
-              <button onClick={()=> navigate(`/user/view-product/${item._id}`) }>View Product</button>
+
+              <button onClick={() => navigate(`/user/view-product/${item._id}`)}>
+                View Product
+              </button>
+
             </div>
           </div>
 

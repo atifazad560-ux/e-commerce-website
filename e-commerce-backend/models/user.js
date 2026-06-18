@@ -42,6 +42,13 @@ const user = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+
+    wishlist: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Product"
+        }
+    ],
     otp: {
         type: String,
         default: null,

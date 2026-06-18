@@ -398,3 +398,85 @@ exports.getProducts = async (req, res) => {
     });
   }
 }
+
+
+
+
+// To post wishlist in data base
+exports.addToWishList = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { productId } = req.body;
+
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found"
+      });
+    }
+
+    const user = await User.findById(userId);
+
+    const exists = user.wishlist.includes(productId);
+
+    if (exists) {
+      await User.findByIdAndUpdate(userId, {
+        $pull: {
+          wishlist: productId
+        }
+      });
+
+      return res.status(200).json({
+        success: true,
+        wishlisted: false
+      });
+    }
+
+    await User.findByIdAndUpdate(userId, {
+      $addToSet: {
+        wishlist: productId
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      wishlisted: true
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong"
+    });
+  }
+};
+
+
+// wishlist me added product dekhne ke lie 
+
+exports.getWishList = async (req, res) => {
+
+  try {
+
+    const userId = req.user.id;
+    const user = await User.findById(userId).
+    populate("wishlist");
+
+    res.status(200).json({
+      success : true,
+      wishlist : user.wishlist
+    })
+
+  } catch (error) {
+  console.log("FULL ERROR:");
+  console.log(error);
+  console.log(error.message);
+
+  res.status(500).json({
+    success: false,
+    message: error.message
+  });
+}
+}

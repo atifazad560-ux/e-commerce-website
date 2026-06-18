@@ -14,7 +14,7 @@ import UserDashboard from "../pages/user/UserDashboard"
 import UserRoute from "./UserRoute"
 import MyOrder from "../pages/user/MyOrder"
 import Profile from "../pages/user/Profile"
-import WishList from "./WishList"
+import WishList from "../pages/user/WishList"
 import Support from "../pages/user/Support"
 import Setting from "./Setting"
 
@@ -42,6 +42,7 @@ import DeliveryDashboard from "../pages/dellivery/DeliveryDashboard"
 import DashboardLayout from "../components/dashboard/DashboardLayout"
 import VerifyEmail from "../pages/auth/VerifyEmail"
 import ViewProduct from "../pages/user/ViewProduct"
+
 
 
 
@@ -77,14 +78,13 @@ const AppRoutes = () => {
           </UserRoute>
         }
       >
-        <Route path="profile" element={<Profile/>}/>  
+        <Route path="profile" element={<Profile />} />
         <Route path="dashboard" element={<UserDashboard />} />
         <Route path="orders" element={<MyOrder />} />
         <Route path="wish-list" element={<WishList />} />
         <Route path="support-help" element={<Support />} />
         <Route path="setting" element={<Setting />} />
-
-        <Route path="view-product/:id" element={<ViewProduct/>} />
+        <Route path="view-product/:id" element={<ViewProduct />} />
 
       </Route>
 
