@@ -69,7 +69,7 @@ function DashboardLayout({ role }) {
 
   const userLinks = [
     {
-      name: "Dashboard",
+      name: "Home page",
       path: "/user/dashboard"
     },
     {
@@ -79,7 +79,19 @@ function DashboardLayout({ role }) {
     {
       name: "My Orders",
       path: "/user/orders"
-    }
+    },
+    {
+      name: "Wish List",
+      path: "/user/wish-list"
+    },
+    {
+      name: "Support & help",
+      path: "/user/support-help"
+    },
+      {
+      name: "Setting",
+      path: "/user/setting"
+    },
   ];
 
   const links =

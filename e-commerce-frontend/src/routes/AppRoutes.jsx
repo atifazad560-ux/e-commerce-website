@@ -36,6 +36,7 @@ import DeliveryRoute from "./DeliveryRoute"
 import DeliveryDashboard from "../pages/dellivery/DeliveryDashboard"
 import DashboardLayout from "../components/dashboard/DashboardLayout"
 import VerifyEmail from "../pages/auth/VerifyEmail"
+import MyOrder from "../pages/user/MyOrder"
 
 
 
@@ -72,6 +73,7 @@ const AppRoutes = () => {
       >
 
         <Route path="dashboard" element={<UserDashboard />} />
+        <Route path="orders" element={<MyOrder />} />
 
       </Route>
 

@@ -1,0 +1,159 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f5f7fa;
+  font-family: Arial, sans-serif;
+}
+
+.dashboard {
+  min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+  height: 75px;
+  background: white;
+  box-shadow: 0 2px 18px rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.navbar h2 {
+  font-size: 28px;
+  color: #111827;
+}
+
+.navbar button {
+  background: #111827;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 70px 20px;
+  background: linear-gradient(135deg, #111827, #2563eb);
+  color: white;
+}
+
+.hero h1 {
+  font-size: 52px;
+  margin-bottom: 16px;
+}
+
+.hero p {
+  font-size: 20px;
+  opacity: 0.9;
+}
+.products-grid {
+  width: 92%;
+  margin: 40px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+}
+
+.product-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.14);
+}
+
+.product-card img {
+  width: 100%;
+  height: 180px;   /* smaller image */
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 16px;
+}
+
+.product-info h2 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #111827;
+}
+
+/* only 2 lines */
+.description {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.4;
+  margin-bottom: 12px;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+
+  overflow: hidden;
+  min-height: 40px;
+}
+
+.product-info h3 {
+  font-size: 22px;
+  margin-bottom: 14px;
+  color: #2563eb;
+}
+
+.product-info button {
+  width: 100%;
+  padding: 11px;
+  border: none;
+  border-radius: 10px;
+  background: #111827;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.product-info button:hover {
+  background: #2563eb;
+}
+
+
+.product-card {
+  position: relative;   /* important */
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.wishlist {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 42px;
+  height: 42px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  z-index: 10;
+}
+
+.wishlist:hover {
+  transform: scale(1.1);
+}

@@ -1,22 +1,63 @@
-import { useSelector } from "react-redux"
+import axios from "axios";
+import { useEffect, useState } from "react";
+import "./UserDashboard.css";
 
 const UserDashboard = () => {
+  const [data, setData] = useState([]);
 
-  const { user } = useSelector(
-    (state) => state.auth
-  )
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const user = localStorage.getItem("user");
+
+      const response = await axios.get(
+        "http://localhost:4000/api/v1/get-all-products",
+        {
+          headers: {
+            Authorization: `Bearer ${user}`,
+          },
+        }
+      );
+
+      setData(response?.data?.products || []);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
-    <div>
+    <div className="dashboard">
+      <nav className="navbar">
+        <h2>Created by Atif Azad</h2>
+        <button>Cart</button>
+      </nav>
 
-      <h1>User Dashboard</h1>
+      <section className="hero">
+        <h1>Discover Premium Products</h1>
+        <p>Best deals from trusted sellers</p>
+      </section>
 
-      <h2>Welcome {user?.name}</h2>
+      <div className="products-grid">
+        {data.map((item) => (
+<div className="product-card" key={item._id}>
+  <div className="wishlist">♡</div>
 
-      <p>Role: {user?.role}</p>
+  <img src={item.image} alt={item.name} />
 
+  <div className="product-info">
+    <h2>{item.name}</h2>
+    <p className="description">{item.description}</p>
+    <h3>₹{item.price}</h3>
+    <button>View Product</button>
+  </div>
+</div>
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserDashboard
+export default UserDashboard;

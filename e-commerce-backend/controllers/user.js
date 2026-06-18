@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const UserType = require("../models/userType");
 const { sendEmail, generateOTP } = require("../utils/sendMail");
 const { sanitizeUser } = require("../utils/sanitize");
+const Product = require("../models/product");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET) {
@@ -318,6 +319,8 @@ exports.resetPassword = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
 exports.getAllUsers = async (req, res) => {
   try {
 
@@ -339,3 +342,30 @@ exports.getAllUsers = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+
+// get all products in homepage which has been added by sellers
+
+exports.getAllProducts=async(req,res)=>{
+
+  try {
+    
+    const products = await Product.find({isActive:true})
+    .populate("seller","name")
+    .populate("category","name");
+
+    res.status(200).json({
+      success: true,
+      products
+    });
+
+  } catch (error) {
+      res.status(500).json({
+      success: false,
+      message: error.message
+    });
+    
+  }
+
+}

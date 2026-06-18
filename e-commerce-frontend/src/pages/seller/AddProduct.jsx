@@ -96,7 +96,10 @@ const AddProduct = () => {
 
         <h2>Add Product</h2>
 
-       
+        <p>
+          Add a new product to your store
+        </p>
+
         <form
           onSubmit={handleSubmit}
           className="addProductForm"
