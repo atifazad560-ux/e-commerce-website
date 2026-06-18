@@ -25,7 +25,7 @@ exports.signup = async (req, res) => {
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const userId = await UserType.findOne({ role: "user" })
- 
+
     const newUser = new User({
       name,
       email,
@@ -36,7 +36,7 @@ exports.signup = async (req, res) => {
       otp,
       otpExpires: Date.now() + 10 * 60 * 1000 // 10 min
     });
-console.log("SIGNUP EMAIL:", req.body.email);
+    console.log("SIGNUP EMAIL:", req.body.email);
     await newUser.save();
 
     await sendEmail
@@ -81,9 +81,9 @@ console.log("SIGNUP EMAIL:", req.body.email);
       message: "Signup successful. OTP sent to email."
     });
 
-  }catch (error) {
-  console.log("SIGNUP ERROR =>", error);
-  res.status(500).json({ error: error.message });
+  } catch (error) {
+    console.log("SIGNUP ERROR =>", error);
+    res.status(500).json({ error: error.message });
 
   }
 };
@@ -127,18 +127,18 @@ exports.verifyEmail = async (req, res) => {
 
 
     const token = jwt.sign(
-       {userId : user._id},
-       JWT_SECRET,
-       {expiresIn: "1h"} 
-      );
+      { userId: user._id },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
 
     res.status(200).json({
 
-      message : "Email verified successfully !!",
+      message: "Email verified successfully !!",
       token,
-      user :{
+      user: {
         ...sanitizeUser(user),
-        role : user.userType.role
+        role: user.userType.role
       }
 
     });
@@ -347,13 +347,13 @@ exports.getAllUsers = async (req, res) => {
 
 // get all products in homepage which has been added by sellers
 
-exports.getAllProducts=async(req,res)=>{
+exports.getAllProducts = async (req, res) => {
 
   try {
-    
-    const products = await Product.find({isActive:true})
-    .populate("seller","name")
-    .populate("category","name");
+
+    const products = await Product.find({ isActive: true })
+      .populate("seller", "name")
+      .populate("category", "name");
 
     res.status(200).json({
       success: true,
@@ -361,11 +361,40 @@ exports.getAllProducts=async(req,res)=>{
     });
 
   } catch (error) {
-      res.status(500).json({
+    res.status(500).json({
       success: false,
       message: error.message
     });
-    
+
   }
 
+}
+
+// get the cliked product from the homePage
+exports.getProducts = async (req, res) => {
+
+  try {
+    const productId = req.params.id;
+
+    const product = await Product.findById(productId)
+      .populate("seller", "name email")
+      .populate("category", "name");
+
+    if (!product) {
+      return res.status(400).json({
+        success: false,
+        message: "product not found"
+      })
+    }
+
+    res.status(200).json({
+      success: true,
+      product
+    })
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
 }

@@ -1,14 +1,19 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./UserDashboard.css";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const UserDashboard = () => {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
   }, []);
 
+
+
+  // for fetching data from server to user HomePage
   const fetchData = async () => {
     try {
       const user = localStorage.getItem("user");
@@ -28,6 +33,9 @@ const UserDashboard = () => {
     }
   };
 
+
+
+
   return (
     <div className="dashboard">
       <nav className="navbar">
@@ -42,18 +50,20 @@ const UserDashboard = () => {
 
       <div className="products-grid">
         {data.map((item) => (
-<div className="product-card" key={item._id}>
-  <div className="wishlist">♡</div>
+          
+          <div className="product-card" key={item._id}>
+            <div className="wishlist">♡</div>
 
-  <img src={item.image} alt={item.name} />
+            <img src={item?.image || "/fallback img.png"} alt={item.name} />
 
-  <div className="product-info">
-    <h2>{item.name}</h2>
-    <p className="description">{item.description}</p>
-    <h3>₹{item.price}</h3>
-    <button>View Product</button>
-  </div>
-</div>
+            <div className="product-info">
+              <h2>{item.name}</h2>
+              <p className="description">{item.description}</p>
+              <h3>₹{item.price}</h3>
+              <button onClick={()=> navigate(`/user/view-product/${item._id}`) }>View Product</button>
+            </div>
+          </div>
+
         ))}
       </div>
     </div>

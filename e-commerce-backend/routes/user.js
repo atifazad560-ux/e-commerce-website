@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { login, signup, verifyEmail, forgotPassword, resetPassword, getAllUsers, getAllProducts } = require('../controllers/user');
+const { login, signup, verifyEmail, forgotPassword, resetPassword, getAllUsers, getAllProducts, getProducts } = require('../controllers/user');
 const { validate } = require('../middleware/validation');
 
 // User Authentication Routes
@@ -15,6 +15,7 @@ router.post("/reset-password",  resetPassword);
 
 router.get("/get-Allusers",  getAllUsers);
 router.get("/get-all-products" , getAllProducts);
+router.get("/products/:id" , getProducts);
 
 
 module.exports = router;
