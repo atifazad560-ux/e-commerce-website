@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { login, signup, verifyEmail, forgotPassword, resetPassword, getAllUsers, getAllProducts, getProducts, addToWishList, getWishList } = require('../controllers/user');
+const { login, signup, verifyEmail, forgotPassword, resetPassword, getAllUsers, getAllProducts, getProducts, addToWishList, getWishList, addtoCart, getCart } = require('../controllers/user');
 const { validate } = require('../middleware/validation');
 const { authUser } = require('../middleware/auth');
 
@@ -21,4 +21,6 @@ router.get("/products/:id" ,authUser, getProducts);
 router.post("/add-wishlist" ,authUser, addToWishList);
 router.get("/get-wishlist" ,authUser, getWishList);
 
+router.post('/add-cart', authUser, addtoCart);
+router.get('/get-cart', authUser, getCart);
 module.exports = router;

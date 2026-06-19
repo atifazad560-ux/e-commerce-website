@@ -33,7 +33,7 @@ const UserDashboard = () => {
     }
   };
 
-
+  // add to wishList api call function
   const addToWishList = async (productId) => {
     console.log(productId);
 
@@ -56,7 +56,7 @@ const UserDashboard = () => {
       } else {
         toast.info("Removed from wishlist");
       }
-      
+
     } catch (error) {
       toast.error("Something went wrong");
     }
@@ -64,13 +64,38 @@ const UserDashboard = () => {
   }
 
 
+  // add to cart api post function
 
+  const addToCart = async () => {
+    try {
+      const user = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+
+      const response = await axios.post(`http://localhost:400/api/v1/add-cart`,
+        { CartproductId },
+        {
+          headers: {
+            Authorization: `Bearer ${user, token}`
+          }
+        }
+      )
+
+      if (response.data.carted) {
+        toast.success("product added to cart")
+      } else {
+        toast.info("Removed from cart")
+      }
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
 
   return (
     <div className="dashboard">
       <nav className="navbar">
         <h2>Created by Atif Azad</h2>
-        <button>Cart</button>
+        <button onClick={() => navigate('/user/cart')}>Cart</button>
       </nav>
 
       <section className="hero">

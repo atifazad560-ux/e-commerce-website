@@ -462,21 +462,98 @@ exports.getWishList = async (req, res) => {
 
     const userId = req.user.id;
     const user = await User.findById(userId).
-    populate("wishlist");
+      populate("wishlist");
 
     res.status(200).json({
-      success : true,
-      wishlist : user.wishlist
+      success: true,
+      wishlist: user.wishlist
     })
 
   } catch (error) {
-  console.log("FULL ERROR:");
-  console.log(error);
-  console.log(error.message);
 
-  res.status(500).json({
-    success: false,
-    message: error.message
-  });
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
 }
-}
+
+
+
+// add product to cart in dataBase using post
+exports.addtoCart = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { cartProductId } = req.body;
+
+    const product = await Product.findById(cartProductId);
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found"
+      });
+    }
+
+    const user = await User.findById(userId);
+
+    const exists = user.cart.includes(cartProductId);
+
+    if (exists) {
+      await User.findByIdAndUpdate(userId, {
+        $pull: { cart: cartProductId }
+      });
+
+      return res.status(200).json({
+        success: true,
+        carted: false
+      });
+    }
+
+    await User.findByIdAndUpdate(userId, {
+      $addToSet: { cart: cartProductId }
+    });
+
+    return res.status(200).json({
+      success: true,
+      carted: true
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
+
+
+// get cart data from server to UI
+exports.getCart = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findById(userId).
+      populate("cart");
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found"
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      cart: user.cart
+    })
+
+  } catch (error) {
+    console.log("GET CART ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+};

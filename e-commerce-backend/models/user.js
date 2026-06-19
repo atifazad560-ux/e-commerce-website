@@ -49,6 +49,12 @@ const user = new mongoose.Schema({
             ref: "Product"
         }
     ],
+    cart: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Product"
+        }
+    ],
     otp: {
         type: String,
         default: null,

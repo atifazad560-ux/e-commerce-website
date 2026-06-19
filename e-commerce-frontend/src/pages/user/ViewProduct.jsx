@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import "./ViewProduct.css";
+import { toast } from 'react-toastify';
 
 function ViewProduct() {
 
@@ -36,6 +37,37 @@ function ViewProduct() {
     }
 
 
+
+    
+  // add to cart api post function
+
+  const addToCart = async (cartProductId) => {
+    try {
+      const user = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+
+      const response = await axios.post(`http://localhost:4000/api/v1/add-cart`,
+        { cartProductId },
+        {
+          headers: {
+            Authorization: `Bearer ${user, token}`
+          }
+        }
+      )
+
+
+      if (response.data.carted) {
+        toast.success("product added to cart")
+      } else {
+        toast.info("Removed from cart")
+      }
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
+
+
     return (
         <div className="view-product-container">
             {!product ? (
@@ -52,7 +84,7 @@ function ViewProduct() {
                     <h3>₹{product?.price}</h3>
 
                     <div className="action-buttons">
-                        <button className="cart-btn">Add to Cart</button>
+                        <button className="cart-btn" onClick={()=> addToCart(product._id)}>Add to Cart</button>
                         <button className="buy-btn">Buy Now</button>
                     </div>
                 </div>
