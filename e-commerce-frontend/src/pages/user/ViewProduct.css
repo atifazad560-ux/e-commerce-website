@@ -1,16 +1,49 @@
-/* ViewProduct.css */
+/* Wrapper */
+.page-wrapper {
+  min-height: 100vh;
+  background: #f5f6fa;
+}
 
+/* TOP BAR FIXED RIGHT */
+.top-bar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px 20px;
+  z-index: 1000;
+  background: transparent;
+}
+
+.top-bar button {
+  padding: 10px 16px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.top-bar button:hover {
+  background-color: #555;
+}
+
+/* CENTER CONTENT */
 .view-product-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px;
-  min-height: 80vh;
-  background: #f5f6fa;
+  padding-top: 80px; /* space for fixed top bar */
+  min-height: 100vh;
 }
 
+/* CARD */
 .view-product-card {
-  background: #ffffff;
+  background: #fff;
   width: 500px;
   border-radius: 12px;
   padding: 25px;
@@ -33,30 +66,21 @@
 
 .view-product-card h2 {
   font-size: 24px;
-  margin: 10px 0;
   color: #222;
 }
 
 .view-product-card p {
   font-size: 14px;
   color: #666;
-  margin: 10px 0;
   line-height: 1.5;
 }
 
 .view-product-card h3 {
   font-size: 22px;
   color: #2e86de;
-  margin-top: 10px;
 }
 
-/* Loading state */
-.loading {
-  font-size: 20px;
-  color: #888;
-  text-align: center;
-}
-
+/* BUTTONS */
 .action-buttons {
   display: flex;
   gap: 15px;
@@ -76,7 +100,6 @@
   transition: all 0.3s ease;
 }
 
-/* Amazon-like light yellow */
 .cart-btn {
   background-color: #ffd814;
 }
@@ -85,7 +108,6 @@
   background-color: #f7ca00;
 }
 
-/* Dark yellow / orange */
 .buy-btn {
   background-color: #ffa41c;
 }
@@ -94,6 +116,13 @@
   background-color: #fa8900;
 }
 
+/* LOADING */
+.loading {
+  font-size: 20px;
+  color: #888;
+}
+
+/* MOBILE */
 @media (max-width: 500px) {
   .action-buttons {
     flex-direction: column;
