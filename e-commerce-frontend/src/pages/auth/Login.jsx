@@ -3,13 +3,11 @@ import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 import API from "../../api/axios"
-
 import { loginSuccess } from "../../redux/features/authSlice"
 
-
+import "./Login.css"
 
 const Login = () => {
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -21,46 +19,25 @@ const Login = () => {
   const [errors, setErrors] = useState({})
 
   const validateForm = () => {
-
     let newErrors = {}
 
-    // Email validation
-
     if (!formData.email) {
-
       newErrors.email = "Email is required"
-    }
-
-    else if (
-      !/\S+@\S+\.\S+/.test(formData.email)
-    ) {
-
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "Invalid email format"
     }
 
-    // Password validation
-
     if (!formData.password) {
-
-      newErrors.password =
-        "Password is required"
-    }
-
-    else if (
-      formData.password.length < 6
-    ) {
-
-      newErrors.password =
-        "Password must be at least 6 characters"
+      newErrors.password = "Password is required"
+    } else if (formData.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters"
     }
 
     setErrors(newErrors)
-
     return Object.keys(newErrors).length === 0
   }
 
   const handleChange = (e) => {
-
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -68,110 +45,73 @@ const Login = () => {
   }
 
   const handleSubmit = async (e) => {
-
     e.preventDefault()
-    if (!validateForm()) {
-      return
-    }
+    if (!validateForm()) return
 
     try {
+      const response = await API.post("/login", formData)
 
-      const response = await API.post(
-        "/login",
-        formData
-      )
-
-      dispatch(loginSuccess({
-        user: response.data.user,
-        token: response.data.token
-      })
+      dispatch(
+        loginSuccess({
+          user: response.data.user,
+          token: response.data.token
+        })
       )
 
       const role = response.data.user?.userType?.role
 
-      if (role === "admin") {
-        navigate("/admin/dashboard")
-      }
+      if (role === "admin") navigate("/admin/dashboard")
+      else if (role === "seller") navigate("/seller/dashboard")
+      else if (role === "delivery") navigate("/delivery/dashboard")
+      else navigate("/user/dashboard")
 
-      else if (role === "seller") {
-        navigate("/seller/dashboard")
-      }
-      else if (role === "delivery") {
-        navigate("/delivery/dashboard")
-      }
-
-      else {
-        navigate("/user/dashboard")
-      }
-      
-
-    }
-
-
-
-    catch (error) {
-
-      console.log(error)
-
-      alert(
-        error.response?.data?.message ||
-        "Login failed"
-      )
+    } catch (error) {
+      alert(error.response?.data?.message || "Login failed")
     }
   }
 
   return (
+    <div className="login-page">
+      <div className="login-card">
+        <h1 className="login-title">Welcome Back</h1>
+        <p className="login-subtitle">Login to continue</p>
 
-    <div>
+        <form onSubmit={handleSubmit} className="login-form">
 
-      <h1>Login</h1>
+          <div className="input-group">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            {errors.email && <span className="error">{errors.email}</span>}
+          </div>
 
-      <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            {errors.password && <span className="error">{errors.password}</span>}
+          </div>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
+          <button type="submit" className="login-btn">
+            Login
+          </button>
 
-        {
-          errors.email && (
-            <p style={{ color: "red" }}>
-              {errors.email}
-            </p>
-          )
-        }
+          <p className="footer-text">
+            Don’t have an account? <span>Sign up</span>
+          </p>
 
-        <br />
-        <br />
-
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter Password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-
-        {
-          errors.password && (
-            <p style={{ color: "red" }}>
-              {errors.password}
-            </p>
-          )
-        }
-
-        <br />
-        <br />
-
-        <button type="submit">
-          Login
-        </button>
-
-      </form>
-
+        </form>
+      </div>
     </div>
   )
 }

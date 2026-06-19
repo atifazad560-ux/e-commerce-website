@@ -139,21 +139,18 @@ body {
 
 .wishlist {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 42px;
-  height: 42px;
-  background: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 10px;
+  right: 10px;
   font-size: 22px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-  z-index: 10;
+  color: #bbb;
+  transition: 0.3s;
 }
 
+.wishlist.active {
+  color: red;
+  transform: scale(1.2);
+}
 .wishlist:hover {
   transform: scale(1.1);
 }

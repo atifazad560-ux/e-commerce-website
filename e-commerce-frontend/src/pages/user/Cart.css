@@ -69,16 +69,16 @@
   line-height: 1.4;
 }
 
-/* button */
-.buy-btn {
+/* Buttons */
+.buy-btn,
+.remove-btn {
   width: 100%;
   padding: 10px;
   border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
-  color: white;
-  font-size: 0.9rem;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 14px;
+  margin-top: 8px;
   transition: 0.3s;
 }
 
@@ -87,21 +87,16 @@
 }
 
 
+/* Remove button */
 .remove-btn {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #e6b38c, #f55449);
-  color: rgb(255, 255, 255);
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: 0.3s;
+  background: #ef4444;
+  color: #fff;
 }
 
 .remove-btn:hover {
-  transform: scale(1.03);
+  background: #dc2626;
 }
+
 
 /* empty state */
 .empty-cart {
