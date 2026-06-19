@@ -74,8 +74,11 @@ function ViewProduct() {
 
             {/* TOP BAR - ALWAYS VISIBLE */}
             <div className="top-bar">
-                <button onClick={() => navigate(`/user/dashboard`)}>
+                <button className='home-button' onClick={() => navigate(`/user/dashboard`)}>
                     Home Page
+                </button>
+                <button className='cart-button' onClick={() => navigate(`/user/cart`)}>
+                    View Cart
                 </button>
             </div>
 

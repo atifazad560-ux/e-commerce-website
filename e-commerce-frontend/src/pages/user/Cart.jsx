@@ -9,11 +9,15 @@ import { toast } from 'react-toastify';
 function Cart() {
 
   const [cart, setCart] = useState([]);
+
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
   }, []);
+
+
 
   const fetchData = async () => {
     try {
@@ -35,7 +39,39 @@ function Cart() {
       toast.error(error?.response?.data)
     }
   }
-  return(
+
+
+
+  // remove cart
+  const removeCart = async (id) => {
+
+    const oldCart = cart;
+
+    setCart(prev => prev.filter(item => item._id !== id));
+
+    try {
+
+      const user = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+
+      const response = await axios.delete(`http://localhost:4000/api/v1/remove-cart/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user, token}`
+          }
+        }
+      )
+
+
+    } catch (error) {
+      setCart(oldCart); // rollback
+      toast.error("Failed to remove item");
+    }
+  }
+
+
+
+  return (
     <div className="cart-page">
       <h1 className="cart-title">My Cart</h1>
 
@@ -61,8 +97,12 @@ function Cart() {
                 </p>
 
                 <button className="buy-btn">Buy Now</button>
-                
-                <button className="remove-btn">Remove from cart</button>
+
+                <button
+                  className="remove-btn"
+                  onClick={() => removeCart(item._id)}>
+                  Remove from cart
+                </button>
               </div>
             </div>
           ))}

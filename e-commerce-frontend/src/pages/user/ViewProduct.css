@@ -12,6 +12,7 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  gap: 12px; /* dono button ke beech professional gap */
   padding: 15px 20px;
   z-index: 1000;
   background: transparent;
@@ -25,11 +26,22 @@
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 500;
   transition: 0.2s ease;
 }
 
 .top-bar button:hover {
   background-color: #555;
+}
+
+/* Amazon wala dark yellow button - Cart ke liye */
+.top-bar .cart-button {
+  background-color: #FFA41C; /* Amazon yellow */
+  color: #111;
+}
+
+.top-bar .cart-button:hover {
+  background-color: #FA8900; /* Darker on hover */
 }
 
 /* CENTER CONTENT */

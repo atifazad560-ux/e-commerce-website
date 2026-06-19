@@ -557,3 +557,29 @@ exports.getCart = async (req, res) => {
     });
   }
 };
+
+
+// remove cart from db 
+
+exports.removeCart = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const productId = req.params.id;
+
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { cart: productId } },
+      { new: true });
+
+    res.status(200).json({
+      success: true,
+      cart : updatedUser.cart
+    })
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "soemthing went wrong !! "
+    })
+  }
+}
