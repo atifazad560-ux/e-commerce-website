@@ -7,6 +7,7 @@ function AdminDashboard() {
   const [stats, setStats] = useState({
     totalUsers: 0,
     totalSellers: 0,
+    totalDelivery: 0,
     totalProducts: 0,
     totalOrders: 0,
   })
@@ -64,6 +65,15 @@ console.log("TOKEN:", token);
           <div>
             <h3>Total Sellers</h3>
             <h2>{stats.totalSellers}</h2>
+          </div>
+        </div>
+
+
+        <div className="stat-card">
+          <div className="stat-icon">🚚</div>
+          <div>
+            <h3>Total Delivery Boy</h3>
+            <h2>{stats.totalDelivery}</h2>
           </div>
         </div>
 

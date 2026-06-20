@@ -100,7 +100,7 @@ const UserDashboard = () => {
     <div className="dashboard">
       <nav className="navbar">
         <h2>Created by Atif Azad</h2>
-        <button onClick={() => navigate('/user/cart')}>Cart</button>
+        <button onClick={() => navigate('/user/cart')}>View Cart</button>
       </nav>
 
       <section className="hero">
@@ -119,6 +119,7 @@ const UserDashboard = () => {
             >
               ♥
             </div>
+            
             <img src={item?.image || "/fallback img.png"} alt={item.name} />
 
             <div className="product-info">

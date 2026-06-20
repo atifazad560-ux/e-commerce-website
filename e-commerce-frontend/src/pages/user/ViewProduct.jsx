@@ -8,6 +8,9 @@ function ViewProduct() {
 
     const [product, setProduct] = useState(null);
     const navigate = useNavigate();
+
+    const [quantity, setQuantity] = useState(1);
+
     const { id } = useParams();
 
     useEffect(() => {
@@ -42,13 +45,16 @@ function ViewProduct() {
 
     // add to cart api post function
 
-    const addToCart = async (cartProductId) => {
+    const addToCart = async (productId) => {
         try {
             const user = localStorage.getItem('user');
             const token = localStorage.getItem('token');
 
-            const response = await axios.post(`http://localhost:4000/api/v1/add-cart`,
-                { cartProductId },
+            const response = await axios.post(`http://localhost:4000/api/v1/add`,
+                {
+                    productId,
+                    quantity
+                },
                 {
                     headers: {
                         Authorization: `Bearer ${user, token}`
@@ -98,11 +104,37 @@ function ViewProduct() {
                         <p>{product?.description}</p>
                         <h3>₹{product?.price}</h3>
 
+
+                        <div className="quantity-box">
+                            <button
+                                onClick={() =>
+                                    quantity > 1 && setQuantity(quantity - 1)
+                                }
+                            >
+                                -
+                            </button>
+
+                            <span>{quantity}</span>
+
+                            <button
+                                onClick={() => setQuantity(quantity + 1)}
+                            >
+                                +
+                            </button>
+                        </div>
+
                         <div className="action-buttons">
                             <button className="cart-btn" onClick={() => addToCart(product._id)}>
                                 Add to Cart
                             </button>
-                            <button className="buy-btn">
+                            <button
+                                className="buy-btn"
+                                onClick={() => navigate("/user/checkout", {
+                                    state: {
+                                        productId,
+                                        quantity
+                                    }
+                                })}>
                                 Buy Now
                             </button>
                         </div>

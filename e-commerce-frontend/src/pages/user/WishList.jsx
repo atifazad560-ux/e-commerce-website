@@ -2,10 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "./WishList.css";
+import { useNavigate } from "react-router-dom";
 
 function WishList() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -42,6 +45,16 @@ function WishList() {
 
   return (
     <div className="wishlist-container">
+
+          {/* TOP BAR - ALWAYS VISIBLE */}
+            <div className="top-bar">
+                <button className='home-button' onClick={() => navigate(`/user/dashboard`)}>
+                    Home Page
+                </button>
+                <button className='cart-button' onClick={() => navigate(`/user/cart`)}>
+                    View Cart
+                </button>
+            </div>
       <h1 className="wishlist-title">My Wishlist</h1>
 
       {loading ? (
