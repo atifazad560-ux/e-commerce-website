@@ -66,6 +66,67 @@ exports.placeOrder = async (req, res) => {
 
 
 
+// ====================================================================================
+// to buy single product by its ID no need to go to cart and order all items in cart
+// ====================================================================================
+
+
+exports.placeSingleOrder = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    // to get these data from the frontend
+    const { productId, quantity, paymentMethod, shippingAddress } = req.body;
+
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({
+        message: "Product not found"
+      });
+    }
+
+    const totalAmount = product.price * quantity;
+
+    const orderItems = [
+      {
+        product: product._id,
+        seller: product.seller,
+        quantity,
+        price: product.price
+      }
+    ];
+
+    const order = new Order({
+      orderNumber: generateOrderNumber(),
+      user: userId,
+      items: orderItems,
+      totalAmount,
+      paymentMethod,
+      paymentStatus:
+        paymentMethod === "COD"
+          ? "pending"
+          : "paid",
+      shippingAddress
+    })
+
+    await order.save();
+
+    res.status(201).json({
+      message: "single product added successfully",
+      order
+    })
+
+
+
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+}
+
+
 // ============================
 // GET MY ORDERS (USER)
 // ============================

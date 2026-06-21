@@ -2,30 +2,55 @@ const Cart = require('../models/cart');
 
 // Add to cart
 exports.addToCart = async (req, res) => {
-  try {
-    const { productId, quantity } = req.body;
+try {
+const { productId, quantity } = req.body;
+const userId = req.user._id;
 
-    const userId = req.user._id;
 
-    let cart = await Cart.findOne({ user: userId });
-    if (!cart) {
-      cart = new Cart({ user: userId, items: [] });
-    }
-    const itemIndex = cart.items.findIndex(
-      item => item.product.toString() === productId
-    );
-    if (itemIndex > -1) {
-      cart.items[itemIndex].quantity += quantity;
-    } else {
-      cart.items.push({ product: productId, quantity });
-    }
+let cart = await Cart.findOne({ user: userId });
 
-    await cart.save();
-    res.json({ message: "Added to cart", cart });
+if (!cart) {
+  cart = new Cart({
+    user: userId,
+    items: []
+  });
+}
 
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+const itemIndex = cart.items.findIndex(
+  item => item.product.toString() === productId
+);
+
+// Product already exists -> Remove
+if (itemIndex > -1) {
+  cart.items.splice(itemIndex, 1);
+
+  await cart.save();
+
+  return res.json({
+    message: "Removed from cart",
+    carted: false,
+    cart
+  });
+}
+
+// Product doesn't exist -> Add
+cart.items.push({
+  product: productId,
+  quantity
+});
+
+await cart.save();
+
+res.json({
+  message: "Added to cart",
+  carted: true,
+  cart
+});
+
+
+} catch (err) {
+res.status(500).json({ error: err.message });
+}
 };
 
 // Get my cart

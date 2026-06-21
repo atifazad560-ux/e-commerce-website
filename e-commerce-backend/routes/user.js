@@ -21,7 +21,7 @@ router.get("/products/:id" ,authUser, getProducts);
 router.post("/add-wishlist" ,authUser, addToWishList);
 router.get("/get-wishlist" ,authUser, getWishList);
 
-router.post('/add-cart', authUser, addtoCart);
-router.get('/get-cart', authUser, getCart);
-router.delete('/remove-cart/:id', authUser, removeCart);
+// router.post('/add-cart', authUser, addtoCart);
+// router.get('/get-cart', authUser, getCart);
+// router.delete('/remove-cart/:id', authUser, removeCart);
 module.exports = router;

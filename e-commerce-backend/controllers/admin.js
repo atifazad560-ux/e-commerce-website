@@ -262,6 +262,7 @@ exports.getDashboardStats = async (req, res) => {
 
     const userRole = await UserType.findOne({ role: "user" });
     const sellerRole = await UserType.findOne({ role: "seller" });
+    const deliveryRole = await UserType.findOne({role : "delivery"})
 
     const totalUsers = await User.countDocuments({
       userType: userRole?._id,
@@ -273,6 +274,10 @@ exports.getDashboardStats = async (req, res) => {
       isDeleted: false
     });
 
+    const totalDelivery = await User.countDocuments({
+      userType: deliveryRole._id,
+      isDeleted: false
+    })
     const totalProducts = await Product.countDocuments({
       isActive: true
     });
@@ -287,6 +292,7 @@ exports.getDashboardStats = async (req, res) => {
         totalSellers,
         totalProducts,
         totalOrders,
+        totalDelivery,
       }
     })
   } catch (error) {

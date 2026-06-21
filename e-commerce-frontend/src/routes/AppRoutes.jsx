@@ -18,6 +18,11 @@ import WishList from "../pages/user/WishList"
 import Support from "../pages/user/Support"
 import Setting from "./Setting"
 
+
+import ViewProduct from "../pages/user/ViewProduct"
+import Cart from "../pages/user/Cart"
+import Buynow from "../pages/user/Buynow"
+
 // Admin
 import AdminRoute from "./AdminRoute"
 import AdminDashboard from "../pages/admin/AdminDashboard"
@@ -41,8 +46,8 @@ import DeliveryRoute from "./DeliveryRoute"
 import DeliveryDashboard from "../pages/dellivery/DeliveryDashboard"
 import DashboardLayout from "../components/dashboard/DashboardLayout"
 import VerifyEmail from "../pages/auth/VerifyEmail"
-import ViewProduct from "../pages/user/ViewProduct"
-import Cart from "../pages/user/Cart"
+
+
 
 
 
@@ -86,8 +91,11 @@ const AppRoutes = () => {
         <Route path="wish-list" element={<WishList />} />
         <Route path="support-help" element={<Support />} />
         <Route path="setting" element={<Setting />} />
+
+
         <Route path="view-product/:id" element={<ViewProduct />} />
         <Route path="cart" element={<Cart/>}/>
+        <Route path="buy-now" element={<Buynow/>}/>
 
       </Route>
 

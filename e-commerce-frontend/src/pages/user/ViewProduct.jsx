@@ -129,14 +129,19 @@ function ViewProduct() {
                             </button>
                             <button
                                 className="buy-btn"
-                                onClick={() => navigate("/user/checkout", {
-                                    state: {
-                                        productId,
-                                        quantity
-                                    }
-                                })}>
+                                onClick={() =>
+                                    navigate("/user/buy-now", {
+                                        state: {
+                                            product,
+                                            quantity
+                                        }
+                                    })
+                                }>
                                 Buy Now
                             </button>
+
+
+
                         </div>
                     </div>
                 )}
