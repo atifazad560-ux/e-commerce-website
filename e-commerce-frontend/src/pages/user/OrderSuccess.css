@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.success-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #eef2ff, #f8fafc);
+    padding: 20px;
+}
+
+.success-card {
+    width: 100%;
+    max-width: 550px;
+    background: white;
+    padding: 50px 35px;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    text-align: center;
+}
+
+.success-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+.success-card h1 {
+    color: #16a34a;
+    margin-bottom: 15px;
+    font-size: 34px;
+}
+
+.success-card p {
+    color: #64748b;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.delivery-box {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 30px;
+}
+
+.delivery-box h3 {
+    margin-bottom: 8px;
+    color: #0f172a;
+}
+
+.success-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.success-buttons button {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.orders-btn {
+    background: linear-gradient(90deg, #4f46e5, #2563eb);
+    color: white;
+}
+
+.shop-btn {
+    background: #e2e8f0;
+}
+
+.success-buttons button:hover {
+    transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+    .success-buttons {
+        flex-direction: column;
+    }
+
+    .success-card {
+        padding: 35px 20px;
+    }
+
+    .success-card h1 {
+        font-size: 26px;
+    }
+}

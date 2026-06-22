@@ -1,55 +1,92 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { toast } from 'react-toastify';
+import "./MyOrder.css";
 
 function MyOrder() {
 
-    const orders = [
-        {
-            id: "ORD123",
-            date: "18 June 2026",
-            amount: 1499,
-            status: "Shipped"
-        },
-        {
-            id: "ORD124",
-            date: "17 June 2026",
-            amount: 699,
-            status: "Delivered"
-        },
-        {
-            id: "ORD125",
-            date: "15 June 2026",
-            amount: 299,
-            status: "Pending"
-        }
-    ];
+    const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+        fetchData();
+    }, [])
+
+    const fetchData = async () => {
+
+        try {
+
+            const user = localStorage.getItem('user')
+            const token = localStorage.getItem('token')
+
+            const response = await axios.get(`http://localhost:4000/api/v1/my-orders`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${user, token}`
+                    }
+                }
+            );
+            console.log(response.data)
+
+            setOrders(response?.data || []);
+
+
+        } catch (error) {
+            toast.info("Unable to Fetch Order");
+            console.log(error);
+
+        };
+    }
+
+
 
     return (
         <div className="orders-container">
-            <h2>My Orders</h2>
 
-            <p className="subtitle">
-                Track all my placed orders
-            </p>
+            {orders.length === 0 ? (
+                <h2>No Orders Found</h2>
+            ) : (
+                orders.map((order) => {
+                    const total = order.items.reduce((sum, item) => {
+                        return sum + item.price * item.quantity;
+                    }, 0);
 
-            <div className="order-table">
-                <div className="table-header">
-                    <span>Order ID</span>
-                    <span>Date</span>
-                    <span>Amount</span>
-                    <span>Status</span>
-                </div>
+                    return (
+                        <div className="order-card" key={order._id}>
+                            <h2>Order ID: {order._id}</h2>
+                            <div className={`status-badge ${order.status}`}>
+                                {order.status}
+                            </div>
 
-                {orders.map((order) => (
-                    <div className="table-row" key={orders.id}>
-                        <span>{order.amount}</span>
-                        <span>{order.id}</span>
-                        <span>{order.date}</span>
-                        <span className={`status ${order.status.toLowerCase()}`}>
-                            {order.status}
-                        </span>
-                    </div>
-                ))}
-            </div>
+                            {order.items.map((item) => (
+                                <div
+                                    className="order-item"
+                                    key={item.product._id}
+                                >
+                                    <img
+                                        src={item.product.image}
+                                        alt={item.product.name}
+                                        width="120"
+                                    />
+
+                                    <div>
+                                        <h3>{item.product.name}</h3>
+                                        <p>Quantity: {item.quantity}</p>
+                                        <p>Price: ₹{item.price}</p>
+                                        <p>Seller: {item.seller.name}</p>
+                                    </div>
+                                </div>
+                            ))}
+
+                            <h3>Total: ₹{total}</h3>
+
+                            {order.status === "pending" && (
+                                <button>Cancel Order</button>
+                            )}
+                        </div>
+                    );
+                })
+            )}
+
         </div>
     )
 }

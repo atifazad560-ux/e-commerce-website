@@ -1,68 +1,197 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f5f7fb;
+  font-family: Arial, sans-serif;
+}
+
 .orders-container {
-    padding: 30px;
-    background: #f5f7fb;
-    min-height: 100vh;
+  width: 100%;
+  min-height: 100vh;
+  padding: 30px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
+/* Empty state */
 .orders-container h2 {
-    font-size: 28px;
-    margin-bottom: 8px;
-    color: #1f2937;
+  text-align: center;
+  color: #64748b;
 }
 
-.subtitle {
-    color: #6b7280;
-    margin-bottom: 25px;
+/* Order card */
+.order-card {
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
+  background: white;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
 }
 
-.orders-table {
-    background: white;
+/* Order header */
+.order-card h2 {
+  font-size: clamp(16px, 2vw, 24px);
+  color: #111827;
+  word-break: break-word;
+}
+
+.order-card > p {
+  display: inline-block;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  background: #fef3c7;
+  color: #92400e;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Product item */
+.order-item {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+  border-top: 1px solid #e5e7eb;
+  align-items: center;
+}
+
+/* Image */
+.order-item img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 8px;
+  flex-shrink: 0;
+}
+
+/* Product details */
+.order-item div {
+  flex: 1;
+  min-width: 0;
+}
+
+.order-item h3 {
+  font-size: clamp(16px, 2vw, 22px);
+  margin-bottom: 12px;
+  color: #111827;
+  word-break: break-word;
+}
+
+.order-item p {
+  color: #64748b;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+/* Total */
+.order-card h3:last-of-type {
+  text-align: right;
+  margin-top: 20px;
+  font-size: clamp(18px, 2vw, 26px);
+}
+
+/* Button */
+.order-card button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ======================
+   TABLET
+====================== */
+@media (max-width: 900px) {
+  .order-card {
+    padding: 20px;
+  }
+
+  .order-item img {
+    width: 110px;
+    height: 110px;
+  }
+}
+
+/* ======================
+   MOBILE
+====================== */
+@media (max-width: 600px) {
+  .orders-container {
+    padding: 15px 10px;
+  }
+
+  .order-card {
+    padding: 16px;
     border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+  }
+
+  .order-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+ @media (max-width: 600px) {
+  .order-item img {
+    width: 100%;
+    height: 240px;
+    object-fit: contain;
+  }
+}
+  .order-card h3:last-of-type {
+    text-align: left;
+  }
 }
 
-.table-header,
-.table-row {
-    display: grid;
-    grid-template-columns: 1.2fr 1.5fr 1fr 1fr;
-    padding: 18px 20px;
-    align-items: center;
+
+.status-badge {
+  display: inline-block;
+  margin-top: 12px;
+  margin-bottom: 22px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: capitalize;
 }
 
-.table-header {
-    background: #2563eb;
-    color: white;
-    font-weight: 600;
+/* Pending */
+.status-badge.pending {
+  background: #fef3c7;
+  color: #92400e;
 }
 
-.table-row {
-    border-bottom: 1px solid #e5e7eb;
+/* Delivered */
+.status-badge.delivered {
+  background: #dcfce7;
+  color: #166534;
 }
 
-.table-row:last-child {
-    border-bottom: none;
+/* Cancelled */
+.status-badge.cancelled {
+  background: #fee2e2;
+  color: #991b1b;
 }
 
-.status {
-    padding: 6px 12px;
-    border-radius: 20px;
-    text-align: center;
-    font-size: 14px;
-    width: fit-content;
-}
-
-.status.pending {
-    background: #fef3c7;
-    color: #92400e;
-}
-
-.status.shipped {
-    background: #dbeafe;
-    color: #1d4ed8;
-}
-
-.status.delivered {
-    background: #dcfce7;
-    color: #166534;
+/* Shipped */
+.status-badge.shipped {
+  background: #dbeafe;
+  color: #1d4ed8;
 }
