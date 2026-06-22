@@ -11,6 +11,9 @@ function MyOrder() {
         fetchData();
     }, [])
 
+
+
+    // get orders from dataBase using Server
     const fetchData = async () => {
 
         try {
@@ -37,6 +40,42 @@ function MyOrder() {
         };
     }
 
+
+    //  to cancel order
+
+
+    const cancelOrder = async (_id) => {
+
+        const oldOrder = [...orders]
+        setOrders(prev =>
+            prev.map(order =>
+                order._id === _id
+                    ? { ...order, status: "cancelled" }
+                    : order
+            )
+        );
+
+        try {
+            const user = localStorage.getItem(`user`);
+            const token = localStorage.getItem(`token`);
+
+            const response = await axios.put(`http://localhost:4000/api/v1/cancel/${_id}`,
+                {},
+                {
+                    headers:{
+                        Authorization:`Bearer ${user , token}`
+                    }
+                }
+            );
+
+            toast.success("Order Cancelled !!");
+        } catch (error) {
+            setOrders(oldOrder);
+            toast.error("Cancel request failed !!")
+        }
+
+
+    }
 
 
     return (
@@ -80,7 +119,10 @@ function MyOrder() {
                             <h3>Total: ₹{total}</h3>
 
                             {order.status === "pending" && (
-                                <button>Cancel Order</button>
+                                <button onClick={() =>
+                                    cancelOrder(order._id)}>
+                                    Cancel Order
+                                </button>
                             )}
                         </div>
                     );
