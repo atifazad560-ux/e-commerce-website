@@ -46,6 +46,7 @@ import DeliveryRoute from "./DeliveryRoute"
 import DeliveryDashboard from "../pages/dellivery/DeliveryDashboard"
 import DashboardLayout from "../components/dashboard/DashboardLayout"
 import VerifyEmail from "../pages/auth/VerifyEmail"
+import OrderSuccess from "../pages/user/OrderSuccess"
 
 
 
@@ -96,6 +97,7 @@ const AppRoutes = () => {
         <Route path="view-product/:id" element={<ViewProduct />} />
         <Route path="cart" element={<Cart/>}/>
         <Route path="buy-now" element={<Buynow/>}/>
+        <Route path="order-success" element={<OrderSuccess/>}/>
 
       </Route>
 

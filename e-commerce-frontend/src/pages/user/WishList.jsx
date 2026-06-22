@@ -5,7 +5,9 @@ import "./WishList.css";
 import { useNavigate } from "react-router-dom";
 
 function WishList() {
-  const [data, setData] = useState([]);
+  const [product, setProduct] = useState([]);
+  const [quantity,setQuantity] = useState(1);
+
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -29,7 +31,8 @@ function WishList() {
         }
       );
 
-      setData(response.data?.wishlist || []);
+      setProduct(response.data?.wishlist || []);
+
     } catch (error) {
       toast.error("Something went wrong");
       console.log(error);
@@ -38,10 +41,7 @@ function WishList() {
     }
   };
 
-  const handleBuyNow = (product) => {
-    console.log("Buy:", product);
-    toast.success(`Buying ${product.name}`);
-  };
+  
 
   return (
     <div className="wishlist-container">
@@ -61,8 +61,8 @@ function WishList() {
         <p className="loading">Loading...</p>
       ) : (
         <div className="wishlist-grid">
-          {data.length > 0 ? (
-            data.map((item, index) => (
+          {product.length > 0 ? (
+            product.map((item, index) => (
               <div className="product-card" key={item?._id || index}>
                 <img
                   className="product-image"
@@ -76,9 +76,15 @@ function WishList() {
 
                   <button
                     className="buy-btn"
-                    onClick={() => handleBuyNow(item)}
+                    onClick={() => navigate(`/user/buy-now`,{
+                      state:{
+                        product : item,
+                        quantity
+                      }
+                    })}
                   >
                     Buy Now
+
                   </button>
                 </div>
               </div>
