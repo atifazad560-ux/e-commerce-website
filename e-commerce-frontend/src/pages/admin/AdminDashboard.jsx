@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./AdminDashboard.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function AdminDashboard() {
 
@@ -11,6 +12,8 @@ function AdminDashboard() {
     totalProducts: 0,
     totalOrders: 0,
   })
+
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -54,7 +57,7 @@ console.log("TOKEN:", token);
 
         <div className="stat-card">
           <div className="stat-icon">👥</div>
-          <div>
+          <div onClick={()=>navigate(`/admin/get-user`)}>
             <h3>Total Users</h3>
             <h2>{stats.totalUsers}</h2>
           </div>
@@ -79,7 +82,7 @@ console.log("TOKEN:", token);
 
         <div className="stat-card">
           <div className="stat-icon">📦</div>
-          <div>
+          <div onClick={()=>navigate(`/admin/products`)}>
             <h3>Total Products</h3>
             <h2>{stats.totalProducts}</h2>
           </div>
@@ -87,8 +90,8 @@ console.log("TOKEN:", token);
 
         <div className="stat-card">
           <div className="stat-icon">🛒</div>
-          <div>
-            <h3>Total Orders</h3>
+          <div onClick={()=>navigate(`/admin/orders`)}>
+            <h3 >Total Orders</h3>
             <h2>{stats.totalOrders}</h2>
           </div>
         </div>
