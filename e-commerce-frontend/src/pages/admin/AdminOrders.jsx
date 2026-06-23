@@ -7,9 +7,22 @@ function AdminOrders() {
   const [orders, setOrders] = useState([]);
   const [selectOrder, setSelectOrder] = useState(null);
 
+  const [filter, setFilter] = useState("all")
+
   useEffect(() => {
     fetchOrders();
   }, []);
+
+
+
+  const handleFilter = (value) => {
+    setFilter(value);
+
+  }
+
+
+
+  // to change delivery status of each card by Admin in MyOrder 
 
   const DeliveryStatusChange = async (orderId, newStatus) => {
     try {
@@ -34,6 +47,9 @@ function AdminOrders() {
     }
   };
 
+
+
+  // to fetch all orders from Order Schema from DB using backend
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -55,10 +71,53 @@ function AdminOrders() {
     }
   };
 
+
+
+  // to filter the order (pending/delivered/shipped ,etc) using a drop down
+  const filteredOrders =
+    filter === "all"
+      ? orders
+      : filter === "cancelled"
+        ? orders.filter(
+          order => order.status?.toLowerCase() === "cancelled"
+        )
+        : orders.filter(
+          order =>
+            order.deliveryStatus?.toLowerCase() === filter.toLowerCase()
+        );
+
+
+
   return (
     <div className="admin-orders-pager">
       <div className="admin-orders-container">
-        <h2 className="page-title">Admin Orders</h2>
+        <div className="orders-header">
+          <div className="header-left">
+            <h2 className="page-title">📋 Admin Orders</h2>
+            <p className="orders-count">
+              📦 Total Orders: {filteredOrders.length}
+            </p>
+          </div>
+
+          <div className="filter-box">
+            <label className="filter-label">🔍 Filter Orders</label>
+
+            <select
+              className="filter-select"
+              value={filter}
+              onChange={(e) => handleFilter(e.target.value)}
+            >
+              <option value="all">📦 All</option>
+              <option value="pending">⏳ Pending Delivery</option>
+              <option value="packed">📦 Packed</option>
+              <option value="shipped">🚚 Shipped</option>
+              <option value="delivered">✅ Delivered</option>
+              <option value="cancelled">❌ Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+
 
         {selectOrder && (
           <div className="modal-overlay" onClick={() => setSelectOrder(null)}>
@@ -77,11 +136,11 @@ function AdminOrders() {
               <div className="modal-body">
                 <div className="order-summary-grid">
                   <div className="summary-card">
-                    <p><strong>User:</strong> {selectOrder?.user?.name}</p>
+                    <p><strong>👤 User:</strong> {selectOrder?.user?.name}</p>
                     <p><strong>Order No:</strong> {selectOrder?.orderNumber}</p>
                     <p>
                       <strong>Ordered On:</strong>{" "}
-                      {new Date(selectOrder.createdAt).toLocaleDateString()}
+                      {new Date(selectOrder.createdAt).toDateString()}
                     </p>
                   </div>
 
@@ -142,26 +201,31 @@ function AdminOrders() {
           </div>
         )}
 
-        {orders.length === 0 ? (
+
+
+
+        {/* starting of the card */}
+
+        {filteredOrders.length === 0 ? (
           <p className="no-orders">No Orders Found</p>
         ) : (
           <div className="orders-grid">
-            {orders.map((order) => (
+            {filteredOrders.map((order) => (
               <div className="order-card" key={order._id}>
                 <h3 className="order-number">
                   Order No: {order.orderNumber}
                 </h3>
 
                 <p className="order-info">
-                  <strong>User:</strong> {order?.user?.name}
+                  <strong>👤 User:</strong> {order?.user?.name}
                 </p>
 
                 <p className="order-info">
-                  <strong>Total Items:</strong> {order?.items?.length}
+                  <strong>🛒 Total Items:</strong> {order?.items?.length}
                 </p>
 
                 <p className="order-info">
-                  <strong>Total Price:</strong> ₹{order?.totalAmount}
+                  <strong>💰 Total Price:</strong> ₹{order?.totalAmount}
                 </p>
 
                 <p className="order-info">
@@ -197,7 +261,7 @@ function AdminOrders() {
                 <button
                   className="view-details-btn"
                   onClick={() => setSelectOrder(order)}>
-                  View Details
+                  🔎 View Details
                 </button>
               </div>
             ))}

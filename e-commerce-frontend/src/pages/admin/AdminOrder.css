@@ -367,3 +367,78 @@
     height: 120px;
   }
 }
+
+
+
+
+/* ==========================================
+   Filter Box Styling
+   ========================================== */
+
+.orders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.orders-count {
+  margin: 0;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.filter-box {
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 250px;
+}
+
+.filter-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.filter-select {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  background: white;
+  cursor: pointer;
+  outline: none;
+  transition: var(--transition);
+}
+
+.filter-select:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 2px rgba(0, 113, 133, 0.15);
+}
+
+.filter-select:hover {
+  border-color: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+  .orders-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-box {
+    width: 100%;
+  }
+}
