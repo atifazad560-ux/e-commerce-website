@@ -1,0 +1,167 @@
+/* Page */
+.admin-orders-page {
+  padding: 30px;
+  background: #f4f6fb;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Header */
+.admin-orders-container {
+  width: 100%;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 25px;
+}
+
+/* Empty state */
+.no-orders {
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* Grid */
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 22px;
+}
+
+/* Order card */
+.order-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s ease;
+  border: 1px solid #eef2f7;
+}
+
+.order-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Order title */
+.order-number {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 18px;
+  word-break: break-word;
+}
+
+/* Text rows */
+.order-info {
+  margin: 12px 0;
+  color: #374151;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.order-info strong {
+  color: #111827;
+}
+
+/* Status badge */
+.status-badge {
+  margin-left: 10px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-badge.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.cancelled {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Delivery section */
+.delivery-section {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.delivery-section strong {
+  display: block;
+  margin-bottom: 12px;
+  color: #111827;
+}
+
+/* Select */
+.status-select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  outline: none;
+  background: white;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.status-select:hover {
+  border-color: #9ca3af;
+}
+
+.status-select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Cancelled text */
+.cancelled-text {
+  color: #dc2626;
+  background: #fef2f2;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-orders-page {
+    padding: 16px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .orders-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .order-card {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-number {
+    font-size: 16px;
+  }
+
+  .order-info {
+    font-size: 13px;
+  }
+
+  .status-select {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+}

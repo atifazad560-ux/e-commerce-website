@@ -26,7 +26,7 @@ function OrderSuccess() {
                 <div className="success-buttons">
                     <button
                         className="orders-btn"
-                        onClick={() => navigate("/my-orders")}
+                        onClick={() => navigate("/user/orders")}
                     >
                         View My Orders
                     </button>

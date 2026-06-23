@@ -237,15 +237,18 @@ exports.getAllOrders = async (req, res) => {
 // ============================
 exports.updateOrderStatus = async (req, res) => {
   try {
-    const { status } = req.body;
+    const { deliveryStatus } = req.body;
 
     const order = await Order.findByIdAndUpdate(
       req.params.id,
-      { status },
+      { deliveryStatus },
       { new: true }
     );
 
-    res.json({ message: "Order status updated", order });
+    res.json({
+      message: "Delivery status updated",
+      order
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
