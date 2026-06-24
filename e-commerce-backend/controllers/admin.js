@@ -194,8 +194,8 @@ exports.getAllUsers = async (req, res) => {
       userType: userRole._id,
       isDeleted: false
     })
-    .select("-password -otp -otpExpires")
-    .populate("userType", "role");
+      .select("-password -otp -otpExpires")
+      .populate("userType", "role");
 
     const usersWithOrders = await Promise.all(
       users.map(async (user) => {
@@ -257,12 +257,12 @@ exports.AdminProduct = async (req, res) => {
 // Admin Dashboard Stats
 
 exports.getDashboardStats = async (req, res) => {
-  
+
   try {
 
     const userRole = await UserType.findOne({ role: "user" });
     const sellerRole = await UserType.findOne({ role: "seller" });
-    const deliveryRole = await UserType.findOne({role : "delivery"})
+    const deliveryRole = await UserType.findOne({ role: "delivery" })
 
     const totalUsers = await User.countDocuments({
       userType: userRole?._id,
@@ -313,7 +313,7 @@ exports.getDashboardStats = async (req, res) => {
 
 exports.createDeliveryBoy = async (req, res) => {
   try {
-    const { name, email, mobile, vehicleNumber , vehicleType  } = req.body;
+    const { name, email, mobile, vehicleNumber, vehicleType } = req.body;
 
     const exists = await User.findOne({ email });
     if (exists) {
@@ -332,7 +332,7 @@ exports.createDeliveryBoy = async (req, res) => {
       password: hashedPassword,
       mobile,
       userType: deliveryRole._id,
-      deliveryInfo: { vehicleNumber , vehicleType},
+      deliveryInfo: { vehicleNumber, vehicleType },
       isActive: true,
       isVerified: true
     });
@@ -378,6 +378,54 @@ exports.createDeliveryBoy = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+exports.getDeliveryBoys = async (req, res) => {
+  try {
+    const deliveryRole = await UserType.findOne({ role: "delivery" });
+
+
+    if (!deliveryRole) {
+      return res.status(404).json({
+        message: "Delivery Roole not found"
+      })
+    }
+
+    const users = await User.find({
+      userType: deliveryRole._id
+    }).
+      select("-password");
+
+    const deliveryBoys = [];
+
+    for (let user of users) {
+      const count = await Order.countDocuments({
+        deliveryBoy: user._id,
+        deliveryStatus: { $ne: "delivered" }
+      });
+
+      deliveryBoys.push({
+        _id: user._id,
+        name: user.name,
+        activeAssignments: count,
+        vehicleType: user.deliveryInfo?.vehicleType
+      })
+
+    }
+    res.json({
+      success: true,
+      deliveryBoys
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    })
+  }
+
+}
+
+
 
 
 exports.assignDeliveryBoy = async (req, res) => {
