@@ -33,6 +33,10 @@ function DashboardLayout({ role }) {
       path: "/admin/create-delivery-boy"
     },
     {
+      name: "Assign Delivery Boy",
+      path: "/admin/assign-delivery-boy"
+    },
+    {
       name: "Create Product Category",
       path : "/admin/category"
     },

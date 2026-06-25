@@ -190,6 +190,8 @@ exports.cancelOrder = async (req, res) => {
     }
 
     order.status = "cancelled";
+    order.deliveryStatus = "failed";
+    // order.paymentStatus ="cancelled"
     await order.save();
 
     res.json({ message: "Order cancelled", order });

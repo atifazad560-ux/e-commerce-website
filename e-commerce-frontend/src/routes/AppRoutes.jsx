@@ -47,6 +47,7 @@ import DeliveryDashboard from "../pages/dellivery/DeliveryDashboard"
 import DashboardLayout from "../components/dashboard/DashboardLayout"
 import VerifyEmail from "../pages/auth/VerifyEmail"
 import OrderSuccess from "../pages/user/OrderSuccess"
+import AssignDelivery from "../pages/admin/AssignDelivery"
 
 
 

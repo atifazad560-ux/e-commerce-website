@@ -5,9 +5,24 @@ import "./AdminOrder.css";
 
 function AdminOrders() {
   const [orders, setOrders] = useState([]);
-  const [selectOrder, setSelectOrder] = useState(null);
 
+
+  // viewDetails ka modal ke lie
+  const [selectOrder, setSelectOrder] = useState(null);
   const [filter, setFilter] = useState("all")
+
+
+  //  assign delivery ke lie
+  const [assignCard, setAssignCard] = useState(null);
+
+  // jo getDeliveryBoy se deliveryBoys data aa raha wo store karne ke lie
+  const [deliveryBoys, setDeliveryBoys] = useState([]);
+
+  // modal ke select me jo delivery boy select ho raha usko store karen ke lie
+  const [selectedBoy, setSelectedBoy] = useState("");
+
+
+
 
   useEffect(() => {
     fetchOrders();
@@ -71,7 +86,48 @@ function AdminOrders() {
     }
   };
 
+  const getDeliveryBoys = async () => {
+    try {
+      const token = localStorage.getItem(`token`);
 
+      const response = await axios.get(`http://localhost:4000/api/v1/get-delivery-boys`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      setDeliveryBoys(response.data.deliveryBoys);
+
+    } catch (error) {
+      toast.error(`couldn't fetch Delivery boy`);
+    }
+  }
+
+  const assignDelivery = async (orderId, deliveryBoyId) => {
+    try {
+      const token = localStorage.getItem(`token`);
+
+      const response = await axios.put(`http://localhost:4000/api/v1/assign-delivery/${orderId}`,
+        { deliveryBoyId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      toast.success(`Delivery Assigned`);
+      fetchOrders();
+      setAssignCard(null);
+      setSelectedBoy("");
+
+
+    } catch (error) {
+      console.log(error);
+      toast.error(`couldn't assign delivery`)
+
+    }
+  }
 
   // to filter the order (pending/delivered/shipped ,etc) using a drop down
   const filteredOrders =
@@ -83,7 +139,9 @@ function AdminOrders() {
         )
         : orders.filter(
           order =>
-            order.deliveryStatus?.toLowerCase() === filter.toLowerCase()
+            order.deliveryStatus?.toLowerCase() !== "cancelled" &&
+            order.deliveryStatus?.toLowerCase() == filter.toLowerCase()
+
         );
 
 
@@ -109,10 +167,12 @@ function AdminOrders() {
             >
               <option value="all">📦 All</option>
               <option value="pending">⏳ Pending Delivery</option>
-              <option value="packed">📦 Packed</option>
-              <option value="shipped">🚚 Shipped</option>
+              <option value="assigned">🚀 Assigned</option>
+              <option value="out_for_delivery">🚚 Out For Delivery</option>
               <option value="delivered">✅ Delivered</option>
-              <option value="cancelled">❌ Cancelled</option>
+              <option value="failed">❌ Failed</option>
+
+
             </select>
           </div>
         </div>
@@ -202,6 +262,63 @@ function AdminOrders() {
         )}
 
 
+        {assignCard && (
+          <div className="modal-overlay" onClick={() => setAssignCard(null)}>
+            <div
+              className="assign-modal"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="assign-modal-header">
+                <h2>Choose Delivery Boy & Assign Order</h2>
+                <button
+                  className="close-btn"
+                  onClick={() => setAssignCard(null)}
+                >
+                  Close
+                </button>
+              </div>
+
+              <div className="assign-modal-body">
+                <div className="assign-order-info">
+                  <p><strong>Order No:</strong> {assignCard?.orderNumber}</p>
+                  <p><strong>Customer:</strong> {assignCard?.shippingAddress?.fullName}</p>
+                  <p><strong>Total Amount:</strong> ₹{assignCard?.totalAmount}</p>
+                </div>
+
+                <div className="assign-select-box">
+                  <h3>Choose Delivery Boy</h3>
+
+                  <select
+                    className="assign-select"
+                    value={selectedBoy}
+                    onChange={(e) => setSelectedBoy(e.target.value)}
+                  >
+                    <option>select delivery boy</option>
+
+                    {deliveryBoys.map((boy) => (
+                      <option key={boy._id} value={boy._id}>
+                        {boy?.name} || Active assignments : {boy.activeAssignments}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <button
+                  className="confirm-assign-btn"
+                  onClick={() => {
+                    if (!selectedBoy) {
+                      return toast.error("please select delivery boy");
+                    }
+                    assignDelivery(assignCard._id, selectedBoy)
+                  }}
+                >
+                  Assign Delivery
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
 
 
         {/* starting of the card */}
@@ -251,11 +368,25 @@ function AdminOrders() {
                       }
                     >
                       <option value="pending">Pending</option>
-                      <option value="packed">Packed</option>
-                      <option value="shipped">Shipped</option>
+                      <option value="assigned">Assigned</option>
+                      <option value="out_for_delivery">Out For Delivery</option>
                       <option value="delivered">Delivered</option>
+                      <option value="failed">Failed</option>
+
                     </select>
                   )}
+
+                  {order.deliveryStatus === "pending" && !order.deliveryBoy && (
+                    <button
+                      className="assign-btn"
+                      onClick={() => {
+                        setAssignCard(order);
+                        getDeliveryBoys()
+                      }}>
+                      🚀 Assign Delivery
+                    </button>
+                  )}
+
                 </div>
 
                 <button
@@ -268,7 +399,7 @@ function AdminOrders() {
           </div>
         )}
       </div>
-    </div>
+    </div >
   );
 }
 

@@ -14,6 +14,6 @@ router.get('/dashboard-stats', authAdmin, getDashboardStats)
 router.post("/create-delivery-boy", authAdmin,  createDeliveryBoy);
 router.put("/assign-delivery/:orderId", authAdmin,  assignDeliveryBoy);
 
-router.get("/get-delivery-boys"  , getDeliveryBoys)
+router.get("/get-delivery-boys", authAdmin  , getDeliveryBoys)
 
 module.exports = router;
