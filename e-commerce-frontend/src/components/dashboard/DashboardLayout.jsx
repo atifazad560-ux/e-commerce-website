@@ -11,6 +11,11 @@ function DashboardLayout({ role }) {
 
   const { user } = useSelector((state) => state.auth)
 
+  console.log("redux user =", user);
+  console.log("role prop =", role);
+  console.log(user?.userType?.role);
+  console.log("db role =", user?.userType?.role);
+
   const adminLinks = [
     {
       name: "Dashboard",
@@ -38,9 +43,9 @@ function DashboardLayout({ role }) {
     },
     {
       name: "Create Product Category",
-      path : "/admin/category"
+      path: "/admin/category"
     },
-    
+
     {
       name: "Orders",
       path: "/admin/orders"
@@ -92,18 +97,31 @@ function DashboardLayout({ role }) {
       name: "Support & help",
       path: "/user/support-help"
     },
-      {
+    {
       name: "Setting",
       path: "/user/setting"
     },
   ];
+
+  const deliveryLinks = [
+    {
+      name: "Dashboard",
+      path: "/delivery/dashboard"
+    },
+    {
+      name: "My Orders",
+      path: "/delivery/my-delivery"
+    },
+  ]
 
   const links =
     role === "admin"
       ? adminLinks
       : role === "seller"
         ? sellerLinks
-        : userLinks;
+        : role == "user"
+          ? userLinks :
+          deliveryLinks;
 
   return (
 

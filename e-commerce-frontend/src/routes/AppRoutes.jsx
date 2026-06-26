@@ -18,6 +18,8 @@ import WishList from "../pages/user/WishList"
 import Support from "../pages/user/Support"
 import Setting from "./Setting"
 
+import OrderSuccess from "../pages/user/OrderSuccess"
+
 
 import ViewProduct from "../pages/user/ViewProduct"
 import Cart from "../pages/user/Cart"
@@ -44,10 +46,10 @@ import Order from "../pages/seller/Order"
 // Delivery
 import DeliveryRoute from "./DeliveryRoute"
 import DeliveryDashboard from "../pages/dellivery/DeliveryDashboard"
+import DeliveryOrders from "../pages/dellivery/DeliveryOrders"
+
 import DashboardLayout from "../components/dashboard/DashboardLayout"
 import VerifyEmail from "../pages/auth/VerifyEmail"
-import OrderSuccess from "../pages/user/OrderSuccess"
-import AssignDelivery from "../pages/admin/AssignDelivery"
 
 
 
@@ -96,9 +98,9 @@ const AppRoutes = () => {
 
 
         <Route path="view-product/:id" element={<ViewProduct />} />
-        <Route path="cart" element={<Cart/>}/>
-        <Route path="buy-now" element={<Buynow/>}/>
-        <Route path="order-success" element={<OrderSuccess/>}/>
+        <Route path="cart" element={<Cart />} />
+        <Route path="buy-now" element={<Buynow />} />
+        <Route path="order-success" element={<OrderSuccess />} />
 
       </Route>
 
@@ -160,12 +162,14 @@ const AppRoutes = () => {
         path="/delivery"
         element={
           <DeliveryRoute>
-            <MainLayout />
+            <Navbar/>
+            <DashboardLayout role="delivery" />
           </DeliveryRoute>
         }
       >
 
         <Route path="dashboard" element={<DeliveryDashboard />} />
+        <Route path="my-delivery" element={<DeliveryOrders />} />
 
       </Route>
 

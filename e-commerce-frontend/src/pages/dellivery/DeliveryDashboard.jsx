@@ -3,12 +3,15 @@ import DashboardLayout from '../../components/dashboard/DashboardLayout'
 
 function DeliveryDashboard() {
   return (
-   <DashboardLayout role="delivery">
-    <h1>Hello Delivery Boy</h1>
-    <p>
-      Welcome to your Dashboard
-    </p>
-   </DashboardLayout>
+
+    <div>
+      <h1>Hello Delivery Boy</h1>
+      <p>
+        Welcome to your Dashboard
+      </p>
+
+    </div>
+
   )
 }
 

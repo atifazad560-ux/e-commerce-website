@@ -88,8 +88,8 @@ app.use('/api/v1', adminRoutes);
 app.use('/api/v1', userRouter);
 app.use('/api/v1', sellerRoutes);
 app.use('/api/v1', cartRoutes);
-app.use('/api/v1', orderRoutes);
 app.use('/api/v1', deliveryRoutes);
+app.use('/api/v1', orderRoutes);
 
 
 // Error handling middleware (must be after all routes)

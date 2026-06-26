@@ -5,6 +5,8 @@ const { getMyDeliveryOrders, outForDelivery, verifyDeliveryOTP } = require("../c
 const { authDeliveryBot } = require("../middleware/auth");
 const { validate } = require("../middleware/validation");
 
+
+
 router.get("/my-delivery", authDeliveryBot, getMyDeliveryOrders);
 router.put("/out-for-delivery/:orderId", authDeliveryBot, outForDelivery);
 router.put("/verify-delivery/:orderId", authDeliveryBot, verifyDeliveryOTP);
