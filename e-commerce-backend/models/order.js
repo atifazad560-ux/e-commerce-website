@@ -68,20 +68,21 @@ const orderSchema = new mongoose.Schema(
       type: String,
       enum: ["pending", "processing", "shipped", "delivered", "cancelled"],
       default: "pending"
-    },deliveryBoy: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "User"
-},
+    },
+    deliveryBoy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
 
-deliveryStatus: {
-  type: String,
-  enum: ["pending", "assigned", "out_for_delivery", "delivered", "failed"],
-  default: "pending"
-},
+    deliveryStatus: {
+      type: String,
+      enum: ["pending", "assigned","accepted", "out_for_delivery", "delivered", "failed"],
+      default: "pending"
+    },
 
-deliveryOTP: String,
-deliveryOTPExpires: Date,
-deliveredAt: Date
+    deliveryOTP: String,
+    deliveryOTPExpires: Date,
+    deliveredAt: Date
 
   },
   { timestamps: true }
@@ -89,5 +90,5 @@ deliveredAt: Date
 
 
 
-let Order= mongoose.model('Order', orderSchema);
+let Order = mongoose.model('Order', orderSchema);
 module.exports = Order;

@@ -11,11 +11,6 @@ function DashboardLayout({ role }) {
 
   const { user } = useSelector((state) => state.auth)
 
-  console.log("redux user =", user);
-  console.log("role prop =", role);
-  console.log(user?.userType?.role);
-  console.log("db role =", user?.userType?.role);
-
   const adminLinks = [
     {
       name: "Dashboard",

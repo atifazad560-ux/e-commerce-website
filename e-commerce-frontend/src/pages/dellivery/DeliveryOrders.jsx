@@ -24,7 +24,10 @@ function DeliveryOrders() {
             );
 
             setOrders(response.data?.orders);
+            console.log("set orders", response.data.orders);
+
         } catch (error) {
+
             toast.error(`couldn't fetch your orders`);
             console.log(error.response?.data);
         }
@@ -47,7 +50,7 @@ function DeliveryOrders() {
 
 
 
-                        <h3 className="order-id">Order ID: {order?._id}</h3>
+                        <h3 className="order-id">Order ID: {order?._id.slice(-6).toUpperCase()}</h3>
 
 
 
@@ -118,17 +121,16 @@ function DeliveryOrders() {
                         <div className="button-group">
 
 
-                            <button className="action-btn verify-btn">
-                                Verify Delivery
-                            </button>
+                            {order.deliveryStatus === `assigned` &&
+                                <button className="action-btn out-btn">
+                                    Out for Delivery
+                                </button>}
 
-                            <button className="action-btn out-btn">
-                                Out for Delivery
-                            </button>
+                            {order.deliveryStatus === `out_for_delivery` &&
+                                <button className="action-btn verify-btn">
+                                    Verify Delivery
+                                </button>}
 
-                            <button className="action-btn delivered-btn">
-                                Delivered
-                            </button>
 
 
                         </div>

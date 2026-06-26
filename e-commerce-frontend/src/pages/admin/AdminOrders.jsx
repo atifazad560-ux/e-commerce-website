@@ -168,6 +168,7 @@ function AdminOrders() {
               <option value="all">📦 All</option>
               <option value="pending">⏳ Pending Delivery</option>
               <option value="assigned">🚀 Assigned</option>
+              <option value="accepted">Accepted by Rider</option>
               <option value="out_for_delivery">🚚 Out For Delivery</option>
               <option value="delivered">✅ Delivered</option>
               <option value="failed">❌ Failed</option>
@@ -369,6 +370,7 @@ function AdminOrders() {
                     >
                       <option value="pending">Pending</option>
                       <option value="assigned">Assigned</option>
+                      <option value="accepted">Accepted</option>
                       <option value="out_for_delivery">Out For Delivery</option>
                       <option value="delivered">Delivered</option>
                       <option value="failed">Failed</option>
