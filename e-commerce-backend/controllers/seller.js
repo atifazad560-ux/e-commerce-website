@@ -1,9 +1,10 @@
 const Category = require("../models/category");
+const Order = require("../models/order");
 const Product = require("../models/product");
 
 exports.addProduct = async (req, res) => {
   try {
-    const { name, price, description, category , image , stock  } = req.body;
+    const { name, price, description, category, image, stock } = req.body;
 
     const product = new Product({
       name,
@@ -71,4 +72,59 @@ exports.getSellerProducts = async (req, res) => {
 
 
 
-// Get Seller dashboard
+// Get Seller dashboard stats
+exports.getSellerDashboardStats = async (req, res) => {
+  try {
+    const sellerId = req.user._id;
+
+    // 1 products count
+    const totalProducts = await Product.countDocuments({
+      seller: sellerId
+    })
+
+    // 2 out of stock count
+    const outOfStockProducts = await Product.countDocuments({
+      seller: sellerId,
+      stock: 0
+    });
+
+    // 3 seller orders fetch
+    const orders = await Order.find({
+      "items.seller": sellerId
+    });
+
+    // 4 pending count
+    const pendingOrders = orders.filter(order => order.status === "pending").length;
+
+    // 5 delivered count
+    const deliveredOrders = orders.filter(order => order.status === "delivered").length;
+
+    // 6 revenue calculate
+    let revenue = 0;
+
+
+    orders.forEach(order => {
+      order.items.forEach(item => {
+        if (item.seller.toString() === sellerId.toString()) {
+          revenue += item.price * item.quantity
+        }
+      });
+    });
+
+    res.status(200).json({
+      totalProducts: totalProducts,
+      totalOrders: orders.length,
+      pendingOrders: pendingOrders,
+      deliveredOrders: deliveredOrders,
+      totalRevenue: revenue,
+      outOfStockProducts: outOfStockProducts
+    })
+
+
+  }
+  catch (error) {
+    res.status(500).json({
+      error: error.message
+    })
+  }
+}

@@ -43,6 +43,7 @@ function DeliveryOrders() {
     //  to accpet delievry assigned by admin
 
     const acceptDelivery = async (orderId) => {
+
         try {
             const token = localStorage.getItem("token");
 
@@ -127,6 +128,8 @@ function DeliveryOrders() {
 
         <div className="delivery-orders-page">
 
+
+
             {otpVerify && (
                 <div className="otp-modal-overlay">
                     <div className="otp-modal">
@@ -137,7 +140,7 @@ function DeliveryOrders() {
                             className="otp-close-btn"
                             onClick={() => setOtpVerify(null)}
                         >
-                            Close
+                            Close 🔴
                         </button>
 
                         <input
@@ -155,14 +158,14 @@ function DeliveryOrders() {
                                 className="otp-submit-btn"
                                 onClick={() => verifyOtp(otpVerify._id)}
                             >
-                                Submit OTP
+                                Submit OTP 🟢
                             </button>
 
                             <button
                                 className="otp-resend-btn"
                                 onClick={() => outForDelivery(otpVerify._id)}
                             >
-                                Resend OTP
+                                Resend OTP 🔵
                             </button>
                         </div>
 
@@ -256,7 +259,7 @@ function DeliveryOrders() {
 
                             {order.deliveryStatus === `assigned` &&
                                 <button
-                                    className="action-btn out-btn"
+                                    className="action-btn accept-btn"
                                     onClick={() => acceptDelivery(order._id)}>
                                     Accept Order
                                 </button>}

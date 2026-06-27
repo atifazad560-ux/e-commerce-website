@@ -1,8 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SellerDashboard.css";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+
+
 
 function SellerDashboard() {
+
+  const [products ,setProducts] = useState([]);
+
+  const getProducts =async ()=>{
+ 
+    try {
+      const token = localStorage.getItem(`token`);
+      const response = await axios.get(`http://localhost:4000/api/v1/my-products`,
+        {
+          headers:{
+            Authorization:`Bearer ${token}`
+          }
+        }
+      );
+
+      setProducts(response.data.products)
+      console.log(response.data.products);
+      
+    } catch (error) {
+      toast.error(`couldn't fetch your data`);
+      console.log(error.message);
+      
+    }
+  }
+
   return (
+
+
     <div className="seller-dashboard">
 
       {/* Header */}
@@ -16,9 +48,9 @@ function SellerDashboard() {
       {/* Stats Cards */}
       <div className="seller-stats">
 
-        <div className="seller-stat-card">
+        <div className="seller-stat-card" onClick={getProducts}>
           <h3>Total Products</h3>
-          <h2>25</h2>
+          <h2>{products.length}</h2>
         </div>
 
         <div className="seller-stat-card">

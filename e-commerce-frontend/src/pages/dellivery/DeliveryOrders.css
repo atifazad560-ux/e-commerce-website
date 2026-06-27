@@ -154,19 +154,42 @@
     transition: all 0.3s ease;
 }
 
+.accept-btn {
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    box-shadow: 0 12px 22px rgba(239, 68, 68, 0.25);
+}
+
+.accept-btn:hover {
+    background: linear-gradient(135deg, #dc2626, #991b1b);
+}
+
+
 .action-btn:hover {
     transform: translateY(-3px);
+    background: #000;
 }
 
-.verify-btn {
-    background: linear-gradient(135deg, #f59e0b, #ea580c);
+.action-btn.verify-btn {
+    background:rgb(57, 255, 2);
     box-shadow: 0 12px 22px rgba(245, 158, 11, 0.25);
+    color: #000;
 }
 
-.out-btn {
+
+.verify-btn:hover {
+    background: linear-gradient(135deg, #059669, #065f46);
+}
+
+.action-btn.out-btn {
     background: linear-gradient(135deg, #3b82f6, #1d4ed8);
     box-shadow: 0 12px 22px rgba(59, 130, 246, 0.25);
 }
+
+.out-btn:hover {
+    background: linear-gradient(135deg, #3300ff, #1e40af);
+   
+}
+
 
 .delivered-btn {
     background: linear-gradient(135deg, #10b981, #047857);
