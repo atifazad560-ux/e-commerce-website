@@ -30,11 +30,11 @@
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(18px);
 
-    border: 1px solid rgba(255,255,255,0.65);
+    border: 1px solid rgba(255, 255, 255, 0.65);
 
     box-shadow:
         0 12px 30px rgba(15, 23, 42, 0.08),
-        inset 0 1px 1px rgba(255,255,255,0.7);
+        inset 0 1px 1px rgba(255, 255, 255, 0.7);
 
     transition: all 0.35s ease;
 }
@@ -44,11 +44,9 @@
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(
-            135deg,
-            rgba(59,130,246,0.08),
-            rgba(249,115,22,0.06)
-        );
+        linear-gradient(135deg,
+            rgba(59, 130, 246, 0.08),
+            rgba(249, 115, 22, 0.06));
     pointer-events: none;
 }
 
@@ -56,7 +54,7 @@
     transform: translateY(-8px) scale(1.01);
     box-shadow:
         0 25px 60px rgba(37, 99, 235, 0.14),
-        0 12px 25px rgba(0,0,0,0.08);
+        0 12px 25px rgba(0, 0, 0, 0.08);
 }
 
 .order-id {
@@ -119,7 +117,7 @@
     color: white;
     font-weight: 700;
     background: linear-gradient(135deg, #10b981, #059669);
-    box-shadow: 0 8px 18px rgba(16,185,129,0.25);
+    box-shadow: 0 8px 18px rgba(16, 185, 129, 0.25);
     transition: 0.3s;
 }
 
@@ -162,17 +160,17 @@
 
 .verify-btn {
     background: linear-gradient(135deg, #f59e0b, #ea580c);
-    box-shadow: 0 12px 22px rgba(245,158,11,0.25);
+    box-shadow: 0 12px 22px rgba(245, 158, 11, 0.25);
 }
 
 .out-btn {
     background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-    box-shadow: 0 12px 22px rgba(59,130,246,0.25);
+    box-shadow: 0 12px 22px rgba(59, 130, 246, 0.25);
 }
 
 .delivered-btn {
     background: linear-gradient(135deg, #10b981, #047857);
-    box-shadow: 0 12px 22px rgba(16,185,129,0.25);
+    box-shadow: 0 12px 22px rgba(16, 185, 129, 0.25);
 }
 
 @media (max-width: 768px) {
@@ -194,5 +192,175 @@
 
     .action-btn {
         width: 100%;
+    }
+}
+
+
+
+
+
+
+/* ================= OTP Modal ================= */
+
+.otp-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+    background: rgba(15, 23, 42, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.otp-modal {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    padding: 36px 30px 30px;
+
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, 0.65);
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.18),
+        inset 0 1px 1px rgba(255, 255, 255, 0.7);
+
+    animation: modalPop 0.3s ease;
+}
+
+@keyframes modalPop {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.otp-title {
+    margin: 0 0 28px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.otp-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+
+    border: none;
+    padding: 10px 16px;
+    border-radius: 999px;
+
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    box-shadow: 0 10px 18px rgba(239, 68, 68, 0.25);
+
+    transition: 0.3s;
+}
+
+.otp-close-btn:hover {
+    transform: translateY(-2px);
+}
+
+.otp-input {
+    width: 100%;
+    padding: 18px 20px;
+    margin-bottom: 24px;
+
+    border-radius: 18px;
+    border: 1px solid #d1d5db;
+    outline: none;
+
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 4px;
+
+    background: #f8fafc;
+    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+.otp-input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+.otp-btn-group {
+    display: flex;
+    gap: 14px;
+}
+
+.otp-submit-btn,
+.otp-resend-btn {
+    flex: 1;
+    border: none;
+    padding: 16px 20px;
+    border-radius: 18px;
+
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.otp-submit-btn {
+    background: linear-gradient(135deg, #10b981, #047857);
+    box-shadow: 0 12px 22px rgba(16, 185, 129, 0.25);
+}
+
+.otp-resend-btn {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    box-shadow: 0 12px 22px rgba(59, 130, 246, 0.25);
+}
+
+.otp-submit-btn:hover,
+.otp-resend-btn:hover {
+    transform: translateY(-3px);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .otp-modal {
+        padding: 28px 18px 20px;
+        border-radius: 22px;
+    }
+
+    .otp-title {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+
+    .otp-btn-group {
+        flex-direction: column;
+    }
+
+    .otp-submit-btn,
+    .otp-resend-btn {
+        width: 100%;
+    }
+
+    .otp-close-btn {
+        padding: 8px 14px;
+        font-size: 13px;
     }
 }

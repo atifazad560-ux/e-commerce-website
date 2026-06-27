@@ -6,6 +6,9 @@ import "./DeliveryOrders.css";
 function DeliveryOrders() {
     const [orders, setOrders] = useState([]);
 
+    const [otpVerify, setOtpVerify] = useState(null);
+    const [otp, setOtp] = useState("");
+
     useEffect(() => {
         fetchOrders();
     }, []);
@@ -62,9 +65,110 @@ function DeliveryOrders() {
     };
 
 
+
+    // to give notification of out for delivery
+
+    const outForDelivery = async (orderId) => {
+        try {
+            const token = localStorage.getItem(`token`);
+
+            const response = await axios.put(`http://localhost:4000/api/v1/out-for-delivery/${orderId}`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+            toast.success(`out for delivery`)
+            fetchOrders();
+        } catch (error) {
+            toast.error(`somethignwent wrong`)
+            console.log(error?.response?.data?.message || `something went wrong`);
+
+        }
+    }
+
+
+
+    // to verify OTP
+
+    const verifyOtp = async (orderId) => {
+
+        try {
+            const token = localStorage.getItem(`token`);
+            console.log("otpVerify", otpVerify);
+            console.log("otp", otp);
+
+            const response = await axios.put(`http://localhost:4000/api/v1/verify-delivery/${orderId}`,
+                { otp },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+
+            toast.success(`otp verified`)
+            setOtp("");
+            setOtpVerify(null);
+            fetchOrders();
+
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response?.data?.message || "Something went wrong")
+
+        }
+    }
+
+
     return (
+
         <div className="delivery-orders-page">
 
+            {otpVerify && (
+                <div className="otp-modal-overlay">
+                    <div className="otp-modal">
+
+                        <h1 className="otp-title">Verify OTP</h1>
+
+                        <button
+                            className="otp-close-btn"
+                            onClick={() => setOtpVerify(null)}
+                        >
+                            Close
+                        </button>
+
+                        <input
+                            className="otp-input"
+                            type="text"
+                            inputMode="numeric"
+                            value={otp}
+                            onChange={(e) => setOtp(e.target.value)}
+                            maxLength={6}
+                            placeholder="Enter OTP"
+                        />
+
+                        <div className="otp-btn-group">
+                            <button
+                                className="otp-submit-btn"
+                                onClick={() => verifyOtp(otpVerify._id)}
+                            >
+                                Submit OTP
+                            </button>
+
+                            <button
+                                className="otp-resend-btn"
+                                onClick={() => outForDelivery(otpVerify._id)}
+                            >
+                                Resend OTP
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            )}
 
             <h3 className="page-title">
                 You have {orders.length} Assignments left right now !!
@@ -152,18 +256,22 @@ function DeliveryOrders() {
 
                             {order.deliveryStatus === `assigned` &&
                                 <button
-                                 className="action-btn out-btn"
-                                 onClick={()=>acceptDelivery(order._id)}>
+                                    className="action-btn out-btn"
+                                    onClick={() => acceptDelivery(order._id)}>
                                     Accept Order
                                 </button>}
 
                             {order.deliveryStatus === `accepted` &&
-                                <button className="action-btn out-btn">
+                                <button
+                                    className="action-btn out-btn"
+                                    onClick={() => outForDelivery(order._id)}>
                                     Out for Delivery
                                 </button>}
 
                             {order.deliveryStatus === `out_for_delivery` &&
-                                <button className="action-btn verify-btn">
+                                <button
+                                    className="action-btn verify-btn"
+                                    onClick={() => setOtpVerify(order)}>
                                     Verify Delivery
                                 </button>}
 

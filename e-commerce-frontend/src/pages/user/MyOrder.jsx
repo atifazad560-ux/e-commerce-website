@@ -91,7 +91,7 @@ function MyOrder() {
 
                     return (
                         <div className="order-card" key={order._id}>
-                            <h2>Order ID: {order._id}</h2>
+                            <h2>Order ID: {order._id.slice(-6).toUpperCase()}</h2>
                             <div className={`status-badge ${order.status}`}>
                                 {order.status}
                             </div>
