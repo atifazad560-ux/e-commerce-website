@@ -10,6 +10,9 @@ function DeliveryOrders() {
         fetchOrders();
     }, []);
 
+
+
+    // to get delievry data
     const fetchOrders = async () => {
         try {
             const token = localStorage.getItem("token");
@@ -32,6 +35,32 @@ function DeliveryOrders() {
             console.log(error.response?.data);
         }
     };
+
+
+    //  to accpet delievry assigned by admin
+
+    const acceptDelivery = async (orderId) => {
+        try {
+            const token = localStorage.getItem("token");
+
+            const response = await axios.patch(
+                `http://localhost:4000/api/v1/accept-delivery/${orderId}`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            toast.success(response.data.message);
+
+            fetchOrders();
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Failed");
+        }
+    };
+
 
     return (
         <div className="delivery-orders-page">
@@ -122,6 +151,13 @@ function DeliveryOrders() {
 
 
                             {order.deliveryStatus === `assigned` &&
+                                <button
+                                 className="action-btn out-btn"
+                                 onClick={()=>acceptDelivery(order._id)}>
+                                    Accept Order
+                                </button>}
+
+                            {order.deliveryStatus === `accepted` &&
                                 <button className="action-btn out-btn">
                                     Out for Delivery
                                 </button>}

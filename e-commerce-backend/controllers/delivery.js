@@ -5,7 +5,7 @@ exports.getMyDeliveryOrders = async (req, res) => {
   try {
     const orders = await Order.find({
       deliveryBoy: req.user._id,
-    //   deliveryBoy: req.user._id,
+      //   deliveryBoy: req.user._id,
       deliveryStatus: { $ne: "delivered" }
     })
       .populate("user")              // customer details
@@ -22,6 +22,44 @@ exports.getMyDeliveryOrders = async (req, res) => {
   }
 };
 
+
+
+exports.acceptDelivery = async (req, res) => {
+
+  try {
+
+    const order = await Order.findOne({
+      _id: req.params.orderId,
+      deliveryBoy: req.user._id
+    })
+
+    if (!order) {
+      return res.status(400).json({
+        message: "Order not found or not assigned to you"
+      })
+    }
+
+    if (order.deliveryStatus !== "assigned") {
+      return res.status(400).json({
+        message: `Order cannot be accepted || Current status : ${order.deliveryStatus}`
+      })
+    }
+
+
+    order.deliveryStatus = "accepted";
+    await order.save();
+
+    res.status(200).json({
+      message: "Order accepted",
+      order
+    })
+
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+}
 
 exports.outForDelivery = async (req, res) => {
   try {
