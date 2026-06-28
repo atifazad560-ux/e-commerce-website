@@ -128,3 +128,55 @@ exports.getSellerDashboardStats = async (req, res) => {
     })
   }
 }
+
+
+
+
+
+exports.getSellerOrders = async (req, res) => {
+  try {
+    const sellerId = req.user._id;
+
+    const orders = await Order.find({
+      "items.seller": sellerId
+    })
+      .populate("user")
+      .populate("deliveryBoy")
+      .populate("items.product");
+
+    const sellerOrders = [];
+
+    orders.forEach(order => {
+
+      const sellerItems = order.items.filter(item =>
+        item.seller.toString() === sellerId.toString()
+      );
+
+      sellerItems.forEach(item => {
+        sellerOrders.push({
+          productName: item.product.name,
+          quantity: item.quantity,
+          userName: order.user.name,
+
+          deliveryAddress:
+            `${order.shippingAddress.addressLine}, ${order.shippingAddress.city}, ${order.shippingAddress.state}`,
+
+          deliveryBoy: order.deliveryBoy?.name || "Not Assigned",
+          deliveryBoyPhone: order.deliveryBoy?.phone || "N/A",
+
+          orderStatus: order.status
+        });
+      });
+
+    });
+
+    res.status(200).json({
+      sellerOrders
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      error: error.message
+    });
+  }
+};

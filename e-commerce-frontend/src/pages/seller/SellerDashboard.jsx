@@ -2,36 +2,61 @@ import React, { useState } from "react";
 import "./SellerDashboard.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 
 
 
 function SellerDashboard() {
 
-  const [products ,setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [stats, setStats] = useState([]);
 
-  const getProducts =async ()=>{
- 
+  useEffect(() => {
+    dashBoardStats();
+  }, []);
+
+  const getProducts = async () => {
+
     try {
       const token = localStorage.getItem(`token`);
       const response = await axios.get(`http://localhost:4000/api/v1/my-products`,
         {
-          headers:{
-            Authorization:`Bearer ${token}`
+          headers: {
+            Authorization: `Bearer ${token}`
           }
         }
       );
 
       setProducts(response.data.products)
       console.log(response.data.products);
-      
+
     } catch (error) {
       toast.error(`couldn't fetch your data`);
       console.log(error.message);
-      
+
     }
   }
 
+
+  const dashBoardStats = async () => {
+    try {
+      const token = localStorage.getItem(`token`);
+      const response = await axios.get(`http://localhost:4000/api/v1/get-seller-stats`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      setStats(response.data);
+      console.log(response.data);
+
+    } catch (error) {
+      console.log(error.message);
+
+    }
+  }
   return (
 
 
@@ -48,24 +73,24 @@ function SellerDashboard() {
       {/* Stats Cards */}
       <div className="seller-stats">
 
-        <div className="seller-stat-card" onClick={getProducts}>
+        <div className="seller-stat-card">
           <h3>Total Products</h3>
-          <h2>{products.length}</h2>
+          <h2>{stats.totalProducts}</h2>
         </div>
 
         <div className="seller-stat-card">
           <h3>Total Orders</h3>
-          <h2>142</h2>
+          <h2>{stats.totalOrders}</h2>
         </div>
 
         <div className="seller-stat-card">
           <h3>Pending Orders</h3>
-          <h2>18</h2>
+          <h2>{stats.pendingOrders}</h2>
         </div>
 
         <div className="seller-stat-card">
           <h3>Total Revenue</h3>
-          <h2>₹45,500</h2>
+          <h2>{stats.totalRevenue}</h2>
         </div>
 
       </div>
