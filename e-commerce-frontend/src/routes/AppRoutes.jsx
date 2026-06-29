@@ -47,9 +47,12 @@ import Order from "../pages/seller/Order"
 import DeliveryRoute from "./DeliveryRoute"
 import DeliveryDashboard from "../pages/dellivery/DeliveryDashboard"
 import DeliveryOrders from "../pages/dellivery/DeliveryOrders"
+import ChangePassword from "../pages/dellivery/ChangePassword"
+
 
 import DashboardLayout from "../components/dashboard/DashboardLayout"
 import VerifyEmail from "../pages/auth/VerifyEmail"
+
 
 
 
@@ -170,6 +173,7 @@ const AppRoutes = () => {
 
         <Route path="dashboard" element={<DeliveryDashboard />} />
         <Route path="my-delivery" element={<DeliveryOrders />} />
+        <Route path="change-password" element={<ChangePassword />} />
 
       </Route>
 

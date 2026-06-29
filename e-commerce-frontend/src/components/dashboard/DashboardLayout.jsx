@@ -103,6 +103,10 @@ function DashboardLayout({ role }) {
       name: "My Orders",
       path: "/delivery/my-delivery"
     },
+    {
+      name: "Change Password",
+      path: "/delivery/change-password"
+    },
   ]
 
   const links =

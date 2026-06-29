@@ -1,5 +1,84 @@
 const Order = require("../models/order");
+const User = require("../models/user");
 const { sendEmail } = require("../utils/sendMail");
+
+const bcrypt = require(`bcrypt`)
+
+exports.changeDeliveryPassword = async (req, res) => {
+
+  try {
+
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required"
+      })
+    };
+
+    if(oldPassword===newPassword){
+      return res.status(400).json({
+        success:false,
+        message:"New password must be different"
+      })
+    }
+
+
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "newPassword and confirmPassword are not same"
+      })
+    };
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: "Password must be at least 6 characters"
+      });
+    }
+
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized"
+      });
+    }
+
+
+
+    const storedPassword = req.user.password
+
+    const isMatch = await bcrypt.compare(oldPassword, storedPassword);
+
+    if (!isMatch) {
+      return res.status(400).json({
+        success: false,
+        message: "Current password is incorrect"
+      })
+    };
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    req.user.password = hashedPassword;
+    await req.user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Password changed successfully"
+    })
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong"
+    })
+  }
+}
+
 
 exports.getMyDeliveryOrders = async (req, res) => {
   try {
