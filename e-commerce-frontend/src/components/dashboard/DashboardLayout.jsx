@@ -42,8 +42,8 @@ function DashboardLayout({ role }) {
       path: "/admin/orders"
     },
     {
-      name: "Settings",
-      path: "/admin/settings"
+      name: "Change Password",
+      path: "/admin/change-password"
     }
 
   ];

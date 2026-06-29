@@ -34,7 +34,8 @@ import CreateCategory from "../pages/admin/CreateCategory"
 import AdminUser from "../pages/admin/AdminUser"
 import AdminProduct from "../pages/admin/AdminProduct"
 import AdminOrders from "../pages/admin/AdminOrders"
-import AdminSetting from "../pages/admin/AdminSetting"
+import ChangeAdminPassword from "../pages/admin/ChangeAdminPassword"
+
 
 // Seller
 import SellerRoute from "./SellerRoute"
@@ -133,7 +134,7 @@ const AppRoutes = () => {
 
         <Route path="orders" element={<AdminOrders />} />
 
-        <Route path="settings" element={<AdminSetting />} />
+        <Route path="change-password" element={<ChangeAdminPassword />} />
 
       </Route>
 
