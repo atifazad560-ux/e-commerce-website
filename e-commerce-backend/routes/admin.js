@@ -1,6 +1,6 @@
 
 const express = require('express');
-const { createAdminUser, addCategory, createSeller, createDeliveryBoy, assignDeliveryBoy, AdminProduct, getDashboardStats, getAllUsers, getDeliveryBoys } = require('../controllers/admin');
+const { createAdminUser, addCategory, createSeller, createDeliveryBoy, assignDeliveryBoy, AdminProduct, getDashboardStats, getAllUsers, getDeliveryBoys, changeAdminPassword } = require('../controllers/admin');
 const { authAdmin } = require('../middleware/auth');
 const { validate } = require('../middleware/validation');
 const router = express.Router();
@@ -15,5 +15,7 @@ router.post("/create-delivery-boy", authAdmin,  createDeliveryBoy);
 router.put("/assign-delivery/:orderId", authAdmin,  assignDeliveryBoy);
 
 router.get("/get-delivery-boys", authAdmin  , getDeliveryBoys)
+
+router.put(`/change-admin-password` , authAdmin , changeAdminPassword)
 
 module.exports = router;
