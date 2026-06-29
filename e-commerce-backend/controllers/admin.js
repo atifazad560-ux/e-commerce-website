@@ -5,7 +5,6 @@ const Category = require("../models/category");
 const { sendEmail } = require("../utils/sendMail");
 const Order = require("../models/order");
 const Product = require("../models/product");
-const bcrypt = require("bcrypt");
 
 // Generate a random secure temporary password
 const generateTempPassword = () => {
