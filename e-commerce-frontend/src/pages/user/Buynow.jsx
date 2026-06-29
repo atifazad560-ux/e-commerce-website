@@ -17,8 +17,8 @@ function Buynow() {
         paymentMethod: "COD",
         shippingAddress: {
             fullName: "",
-            phone: "",
-            street: "",
+            mobile: "",
+            addressLine: "",
             city: "",
             state: "",
             pincode: ""
@@ -37,14 +37,14 @@ function Buynow() {
 
 
     const validateOrder = () => {
-        const { fullName, phone, street, city, state, pincode } = order.shippingAddress;
+        const { fullName, mobile, addressLine, city, state, pincode } = order.shippingAddress;
 
-        if (!fullName || !phone || !street || !street || !city || !state || !pincode) {
+        if (!fullName || !mobile || !addressLine || !city || !state || !pincode) {
             toast.error("Please fill all the fields !!")
             return false;
         }
 
-        if (phone.length !== 10) {
+        if (mobile.length !== 10) {
             toast.error("Phone no. must be 10 digits")
             return false;
         }
@@ -65,12 +65,12 @@ function Buynow() {
 
     const placeOrder = async () => {
 
-        if (!validateOrder()){
+        if (!validateOrder()) {
             return;
         };
-        
+
         try {
-            const user = localStorage.getItem(`user`);
+
             const token = localStorage.getItem("token");
 
 
@@ -84,14 +84,14 @@ function Buynow() {
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${user, token}`
+                        Authorization: `Bearer ${token}`
                     }
                 }
             );
 
             console.log(response.data);
             toast.success("Order placed successfully");
-            navigate("/user/order-success");
+            navigate("/user/order-success",);
         } catch (error) {
             console.log(error);
             toast.error("Order failed");
@@ -156,14 +156,14 @@ function Buynow() {
                     />
 
                     <input
-                        name="phone"
+                        name="mobile"
                         placeholder="Phone Number"
                         onChange={handleChange}
                         required
                     />
 
                     <input
-                        name="street"
+                        name="addressLine"
                         placeholder="Street Address"
                         onChange={handleChange}
                     />

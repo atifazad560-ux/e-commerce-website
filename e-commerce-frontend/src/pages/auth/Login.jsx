@@ -107,7 +107,7 @@ const Login = () => {
           </button>
 
           <p className="footer-text">
-            Don’t have an account? <span>Sign up</span>
+            Don’t have an account? <span onClick={()=>navigate(`/signup`)}>Sign up</span>
           </p>
 
         </form>

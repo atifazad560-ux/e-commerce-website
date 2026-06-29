@@ -162,7 +162,7 @@ exports.getSellerOrders = async (req, res) => {
             `${order.shippingAddress.addressLine}, ${order.shippingAddress.city}, ${order.shippingAddress.state}`,
 
           deliveryBoy: order.deliveryBoy?.name || "Not Assigned",
-          deliveryBoyPhone: order.deliveryBoy?.phone || "N/A",
+          deliveryBoyPhone: order.deliveryBoy?.mobile || "N/A",
 
           orderStatus: order.status
         });

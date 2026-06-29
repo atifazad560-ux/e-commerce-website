@@ -31,8 +31,18 @@ const user = new mongoose.Schema({
         default: null,
     },
     deliveryInfo: {
-        vehicleNumber: { type: String, trim: true },
-        isAvailable: { type: Boolean, default: true }
+        vehicleNumber: {
+            type: String,
+            trim: true
+        },
+        vehicleType: {
+            type: String,
+            enum: ["bike", "cycle", "car", "van"]
+        },
+        isAvailable: {
+            type: Boolean,
+            default: true
+        }
     },
     isActive: {
         type: Boolean,
@@ -49,12 +59,7 @@ const user = new mongoose.Schema({
             ref: "Product"
         }
     ],
-    // cart: [
-    //     {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: "Product"
-    //     }
-    // ],
+
     otp: {
         type: String,
         default: null,
