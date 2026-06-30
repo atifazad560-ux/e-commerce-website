@@ -105,8 +105,10 @@ const handleLogout = () => {
               )
             }
 
-            <span style={{ color: "yellow" }}>
-              {user?.name}
+            <span
+             style={{ color: "yellow" }}
+             onClick={()=>navigate(`/${user?.userType?.role}/profile`)}>
+              👤{user?.name}
             </span>
 
             <button
